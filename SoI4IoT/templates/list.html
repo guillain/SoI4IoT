@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block list %}
+    {% if '1' in session.admin %}
+        <list>
+          <div id="listDiv" class="center">
+            <h2>List</h2>
+            <table class="center">
+              <tr><th>Login</th><th>Email</th><th>Admin</th><th>Group</th></tr>
+              {% for view in list %}
+              <tr>
+                <td><a href="{{ url_for('soi4ioT_api.view') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td>{{ view[1] }}</td>
+                <td>{{ view[2] }}</td>
+                <td>{{ view[3] }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </list>
+    {% else %}
+        <span>You're not allowed you access to this feature</span>
+    {% endif %}
+{% endblock %}
+
