@@ -35,7 +35,11 @@ CREATE TABLE `iot` (
 DROP TABLE IF EXISTS `tracking`;
 CREATE TABLE `tracking` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
-  `did` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `website` varchar(128) NOT NULL,
+  `webhook` varchar(128) NOT NULL,
   `gps` varchar(32) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`tid`)
@@ -44,7 +48,7 @@ CREATE TABLE `tracking` (
 --
 -- Table structure for table `events`
 --
-DROP TABLE IF EXISTS `events`;
+-- DROP TABLE IF EXISTS `events`;
 CREATE TABLE `events` (
   `eid` int(11) NOT NULL AUTO_INCREMENT,
   `module` varchar(32) NOT NULL,
