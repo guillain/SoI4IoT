@@ -60,10 +60,9 @@ body {
   font-weight: 200;
 }
 header {
-  height: 40px;
   background: #f7f7f7;
 }
-header,nav,users,user,new,dashboard,footer {
+header,nav,list,view,new,dashboard,footer,div.array {
   margin: .2em; /* .4 */
   padding: 1em; /* 1 */
   border-radius: 6px; /* 6 */
@@ -75,13 +74,17 @@ nav {
   height: 140px;
   text-align: left;
 }
-dashboard,users,user,new,view {
+dashboard,list,new,view {
   width: 90%;
   height: 400px;
   text-align: center;
 }
+div.array{
+  width:30%;
+  display: inline-block;
+}
+
 footer {
-  height: 40px;
   background: #f7f7f7; /* #eff8f6;*/
 }
 
@@ -178,7 +181,11 @@ body {
     order : 0;
     width: auto;
   }
-  dashboard,new,users,user,view {
+  dashboard,new,list,view {
+    width: auto;
+  }
+  div.array {
+    display: flex;
     width: auto;
   }
 }
