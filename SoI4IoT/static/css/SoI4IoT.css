@@ -62,7 +62,7 @@ body {
 header {
   background: #f7f7f7;
 }
-header,nav,list,view,new,dashboard,footer,div.array {
+header,nav,list,view,new,welcome,dashboard,footer,div.array {
   margin: .2em; /* .4 */
   padding: 1em; /* 1 */
   border-radius: 6px; /* 6 */
@@ -74,7 +74,7 @@ nav {
   height: 140px;
   text-align: left;
 }
-dashboard,list,new,view {
+welcome,dashboard,list,new,view {
   width: 90%;
   height: 400px;
   text-align: center;
@@ -120,7 +120,7 @@ div {
   vertical-align: top;
 }
 input, select, textarea {
-  width : 200px;
+  width : 160px;
 }
 select, textarea, input, button {
   text-align: center;
@@ -181,7 +181,7 @@ body {
     order : 0;
     width: auto;
   }
-  dashboard,new,list,view {
+  welcome,dashboard,new,list,view {
     width: auto;
   }
   div.array {
