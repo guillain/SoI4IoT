@@ -22,8 +22,14 @@ api.config.from_envvar('FLASK_SETTING')
 # Dashboard ---------------------------------------
 @soi4ioT_api.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    wEvent('/dashboard','request','Get dashboard','')
-    return render_template('dashboard.html')
+    try:
+        dashboard = exeReq("SELECT gps FROM iot;")
+        wEvent('/dashboard','exeReq','Get','OK')
+        print str(dashboard)
+        return render_template('dashboard.html', dashboard = dashboard)
+    except Exception as e:
+        wEvent('/dashboard','exeReq','Get','KO')
+        return 'Dashboard error'
 
 # IoT / human creation -------------------------------------------
 @soi4ioT_api.route('/new', methods=['POST', 'GET'])
@@ -61,7 +67,7 @@ def newSub():
 def view():
     try:
         sql  = "SELECT login,firstname,lastname,password,email,enterprise,admin,grp,"
-        sql += "deviceid,devicename,devicedescription,devicestatus,deviceupdate,address,mobile,gps,ip,url,webhook,website "
+        sql += "  deviceid,devicename,devicedescription,devicestatus,deviceupdate,address,mobile,gps,ip,url,webhook,website "
         sql += "FROM iot WHERE login = '" + request.args['login'] + "';"
         view = exeReq(sql)
         wEvent('/view','exeReq','Get','OK')
@@ -83,8 +89,7 @@ def update():
         sql += "  ip = '" + request.form['ip'] + "', address = '" + request.form['address'] + "', "
         sql += "  webhook = '" + request.form['webhook'] + "', website = '" + request.form['website'] + "', "
         sql += "  deviceid = '" + request.form['deviceid'] + "', devicename = '" + request.form['devicename'] + "', " 
-        sql += "  devicestatus = '" + request.form['devicestatus'] + "', devicedescription = '" + request.form['devicedescription'] + "';"
-
+        sql += "  devicestatus = '" + request.form['devicestatus'] + "', devicedescription = '" + request.form['devicedescription'] + "' "
         sql += "WHERE login = '" + request.form['login'] + "';"
     except Exception as e:
         wEvent('/update','arg','SQL request preparation','KO')
