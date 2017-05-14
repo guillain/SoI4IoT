@@ -1,0 +1,26 @@
+<VirtualHost *:80>
+    ServerName ServerName
+    ServerAdmin admin@ServerName
+    ServerSignature Off
+
+    ErrorLog /var/www/SoI4IoT/log/error.log
+    CustomLog /var/www/SoI4IoT/log/access.log combined
+    LogLevel info
+
+    AddHandler wsgi-script .wsg
+
+    WSGIDaemonProcess SoI4IoT user=www-data group=www-data threads=10 display-name=%{GROUP}
+    WSGIProcessGroup SoI4IoT
+    WSGIScriptAlias / /var/www/SoI4IoT/SoI4IoT.wsgi
+    WSGIScriptReloading On
+
+    <Directory /var/www/SoI4IoT>
+        WSGIProcessGroup SoI4IoT
+        WSGIApplicationGroup %{GLOBAL}
+        Order deny,allow
+        Allow from all
+	Require all granted
+    </Directory>
+</VirtualHost>
+
+
