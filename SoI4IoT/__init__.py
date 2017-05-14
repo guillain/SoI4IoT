@@ -33,7 +33,7 @@ def my_form():
 def login():
     error = None
     if 'login' in session:
-        return render_template('users.html')
+        return render_template('dashboard.html')
 
     login = request.form['login']
     if not login:
@@ -46,7 +46,7 @@ def login():
         return render_template('login.html')
 
     try:
-        data = exeReq("SELECT grp, admin FROM users WHERE login='"+login+"' AND pw_hash=PASSWORD('"+password+"')")
+        data = exeReq("SELECT grp, admin FROM iot WHERE login='"+login+"' AND password=PASSWORD('"+password+"')")
     except Exception as e:
         wEvent('/login','','DB connection/request', 'KO')
         return render_template('login.html')
@@ -63,8 +63,8 @@ def login():
         session['login'] = str(login)
         session['grp'] = str(data[0][0])
         session['admin'] = str(data[0][1])
-        wEvent('/login',session['uid'],"User "+session['login']+" logged",'OK')
-        return render_template('users.html', users)
+        wEvent('/login',session['login'],"User "+session['login']+" logged",'OK')
+        return render_template('dashboard.html')
     except Exception as e:
         wEvent('/login','','Wrong email or password','KO')
         return render_template('login.html')
@@ -72,7 +72,7 @@ def login():
 # Logout --------------------------------------------------
 @app.route('/logout')
 def logout():
-  wEvent('/logout',session['uid'],'You were logged out','OK')
+  wEvent('/logout',session['login'],'You were logged out','OK')
   session.clear()
   return redirect('/')
 
