@@ -1,0 +1,189 @@
+/*
+ Target: SoI4IoT style and actions...
+ Version: 0.1
+ Date: 2017/01/04
+ Mail: guillain@gmail.com
+ Copyright 2017 GPL - Guillain
+*/
+
+/* --- display additionnal info when onmouse --- */
+.hideme {
+    display:none;
+    background-color:rgb(157,255,255);
+    padding:5px;
+}
+
+/* popup background */
+.popup {
+    text-align: center;
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('')
+                50% 50%
+                no-repeat;
+}
+
+/* Loading background */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url("../image/loading.gif")
+                50% 50% 
+                no-repeat;
+}
+body.loading {
+    overflow: hidden;   
+}
+body.loading .modal {
+    display: block;
+}
+
+/* --- Decoration --- */
+body {
+  margin: 0;
+  background: #ffffff;
+/*  font-family: arial, sans-serif; */
+  font-family: Helvetica Neue,Arial;
+  font-size: 10; /*rem;*/
+  font-weight: 200;
+}
+header {
+  height: 40px;
+  background: #f7f7f7;
+}
+header,nav,users,user,new,dashboard,footer {
+  margin: .2em; /* .4 */
+  padding: 1em; /* 1 */
+  border-radius: 6px; /* 6 */
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+nav {
+  width: 10%;
+  height: 140px;
+  text-align: left;
+}
+dashboard,users,user,new,view {
+  width: 90%;
+  height: 400px;
+  text-align: center;
+}
+footer {
+  height: 40px;
+  background: #f7f7f7; /* #eff8f6;*/
+}
+
+ul {
+  list-style-type: square;
+  display: block;
+  text-align: left;
+}
+.center {
+  width:100%;
+  text-align: center;
+}
+table.tblCenter {
+  width:100%;
+  text-align: center;
+  table-layout: fixed;
+}
+td, th, td.tblLeft {
+  width:(100/x)%;
+  text-align: left;
+}
+td.tblCenter {
+  width:(100/x)%;
+  text-align: center;
+}
+td.tblRight {
+  width:(100/x)%;
+  text-align: right;
+}
+div {
+  border-radius: 6px;
+  text-align: center;
+  vertical-align: top;
+}
+input, select, textarea {
+  width : 200px;
+}
+select, textarea, input, button {
+  text-align: center;
+  display: inline-block;
+  font-family: serif;
+  border-radius: 6px; 
+}
+.result,.title {
+  text-align: left;
+}
+.module {
+  text-align: center;
+}
+.iconimg {
+  width: 16px;
+  height: 16px;
+  border: 0;
+}
+.article {
+   float: left;
+   margin: 10px;
+   padding: 10px;
+   max-width: 300px;
+   height: 300px;
+   border: 0; /* 1px solid black; */
+}
+/*#botMsgDiv {
+    display: inline-block;
+    vertical-align: top;
+}*/
+
+/* --- Flexible placement --- */
+* {
+  box-sizing: border-box; /* pour maîtriser width et flex-basis */
+}
+html {
+  display: flex; 
+  flex-direction: column; /* correction bug IE de min-height non appliqué à body */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 10vh; /* toute la hauteur du viewport */
+  padding: .4em; 
+}
+.wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+@media (max-width: 780px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  nav {
+    order : 0;
+    width: auto;
+  }
+  dashboard,new,users,user,view {
+    width: auto;
+  }
+}
+
+#map {
+  height: 100%;
+}
+
