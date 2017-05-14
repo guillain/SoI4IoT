@@ -25,7 +25,7 @@ def dashboard():
     wEvent('/dashboard','request','Get dashboard','')
     return render_template('dashboard.html')
 
-# New -------------------------------------------
+# IoT / human creation -------------------------------------------
 @soi4ioT_api.route('/new', methods=['POST', 'GET'])
 def new():
     wEvent('/new','request','Get new','')
@@ -34,66 +34,78 @@ def new():
 @soi4ioT_api.route('/newSub', methods=['POST'])
 def newSub():
     try:
-        sql  = "INSERT INTO users (login,firstname,lastname,email,grp,mobile,gps,pw_hash,admin) VALUES"
-        sql += "  ('" + request.form['login'] + "','" + request.form['firstname'] + "','" + request.form['lastname'] + "','"
-        sql +=    request.form['email'] + "','" + request.form['grp'] + "','" + request.form['mobile'] + "','"
-        sql +=    request.form['gps'] + "','" + request.form['pass'] + "','" + request.form['admin'] + "');"
+        sql  = "INSERT INTO iot SET "
+        sql += "  login = '" + request.form['login'] +"', email = '" + request.form['email'] + "', "
+        sql += "  firstname = '" + request.form['firstname'] + "', lastname = '" + request.form['lastname'] + "', "
+        sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
+        sql += "  password = '" + request.form['password'] +"', enterprise = '" + request.form['enterprise'] + "', "
+        sql += "  gps = '" + request.form['gps'] + "', mobile = '" + request.form['mobile'] + "', "
+        sql += "  ip = '" + request.form['ip'] + "', address = '" + request.form['address'] + "', "
+        sql += "  webhook = '" + request.form['webhook'] + "', website = '" + request.form['website'] + "', "
+        sql += "  deviceid = '" + request.form['deviceid'] + "', devicename = '" + request.form['devicename'] + "', "
+        sql += "  devicestatus = '" + request.form['devicestatus'] + "', devicedescription = '" + request.form['devicedescription'] + "';"
     except Exception as e:
         wEvent('/newSub','arg','SQL request preparation','KO')
         return 'SQL request preparation issue'
-
+    print sql
     try:
-        user = exeReq(sql)
-        wEvent('/newSub','exeReq','User creation','OK')
-        return 'User creation OK'
+        iot = exeReq(sql)
+        wEvent('/newSub','exeReq','Creation','OK')
+        return 'Creation OK'
     except Exception as e:
-        wEvent('/newSub','exeReq','User creation','KO')
-        return 'User creation error'
+        wEvent('/newSub','exeReq','Creation','KO')
+        return 'Creation error'
 
-# User ------------------------------------------
-@soi4ioT_api.route('/user', methods=['POST', 'GET'])
-def user():
+# View ---------------------------------------------------
+@soi4ioT_api.route('/view', methods=['POST', 'GET'])
+def view():
     try:
-        user = exeReq("SELECT login,firstname,lastname,email,mobile,GPS,admin,grp FROM users WHERE login = '"+request.args['login']+"';")
-        wEvent('/user','exeReq','Get user','OK')
-        return render_template('user.html', user = user[0])
+        sql  = "SELECT login,firstname,lastname,password,email,enterprise,admin,grp,"
+        sql += "deviceid,devicename,devicedescription,devicestatus,deviceupdate,address,mobile,gps,ip,url,webhook,website "
+        sql += "FROM iot WHERE login = '" + request.args['login'] + "';"
+        view = exeReq(sql)
+        wEvent('/view','exeReq','Get','OK')
+        print str(view)
+        return render_template('view.html', view = view[0])
     except Exception as e:
-        wEvent('/user','exeReq','Get user','KO')
-        return 'Get user error'
+        wEvent('/view','exeReq','Get','KO')
+        return 'View error'
 
-@soi4ioT_api.route('/userSub', methods=['POST','GET'])
-def userSub():
+# Update -------------------------------------------------
+@soi4ioT_api.route('/update', methods=['POST'])
+def update():
     try:
-        sql  = "UPDATE users SET "
+        sql  = "UPDATE iot SET "
         sql += "  firstname = '" + request.form['firstname'] + "', lastname = '" + request.form['lastname'] + "', "
         sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
-        sql += "  gps = '" + request.form['gps'] + "', mobile = '" + request.form['mobile'] + "' "
+        sql += "  password = '" + request.form['password'] +"', enterprise = '" + request.form['enterprise'] + "', "
+        sql += "  gps = '" + request.form['gps'] + "', mobile = '" + request.form['mobile'] + "', "
+        sql += "  ip = '" + request.form['ip'] + "', address = '" + request.form['address'] + "', "
+        sql += "  webhook = '" + request.form['webhook'] + "', website = '" + request.form['website'] + "', "
+        sql += "  deviceid = '" + request.form['deviceid'] + "', devicename = '" + request.form['devicename'] + "', " 
+        sql += "  devicestatus = '" + request.form['devicestatus'] + "', devicedescription = '" + request.form['devicedescription'] + "';"
+
         sql += "WHERE login = '" + request.form['login'] + "';"
     except Exception as e:
-        wEvent('/userSub','arg','SQL request preparation','KO')
+        wEvent('/update','arg','SQL request preparation','KO')
         return 'SQL request preparation issue'
 
     try:
         user = exeReq(sql)
-        wEvent('/userSub','exeReq','User update','OK')
-        return 'User update OK'
+        wEvent('/update','exeReq','Update','OK')
+        return 'Update OK'
     except Exception as e:
-        wEvent('/userSub','exeReq','User update','KO')
-        return 'User update error'
+        wEvent('/update','exeReq','Update','KO')
+        return 'Update error'
 
-# Users ------------------------------------------
-@soi4ioT_api.route('/users', methods=['POST', 'GET'])
-def users():
+# List --------------------------------------------------------
+@soi4ioT_api.route('/list', methods=['POST', 'GET'])
+def list():
     try:
-        users = exeReq("SELECT login,email,admin,grp FROM users;")
-        wEvent('/users','exeReq','Get user list','OK')
-        return render_template('users.html', users = users)
+        list = exeReq("SELECT login,email,admin,grp FROM iot;")
+        wEvent('/list','exeReq','Get list','OK')
+        return render_template('list.html', list = list)
     except Exception as e:
-        wEvent('/users','exeReq','Get user list','KO')
-        return 'Get user list error'
-
-@soi4ioT_api.route('/usersSub', methods=['POST'])
-def usersSub():
-    error = None
-    return 'OK'
+        wEvent('/list','exeReq','Get list','KO')
+        return 'List error'
 
