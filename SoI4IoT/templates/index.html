@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SoI4IoT-v0.1</title>
+    <style></style>
+	<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="icon" href="{{ url_for('static', filename='image/spark.ico') }}" />
+
+        <script src="{{ url_for('static', filename='js/jquery-1.9.0.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.popupoverlay.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+
+        <script src="{{ url_for('static', filename='js/SoI4IoT.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/SoI4IoT.css') }}" type="text/css" />
+
+	<!--[if lt IE 9]>
+             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+   </head>
+   <body>
+    <!-- Loading -->
+    <div class="modal"><span>Treatment ongoing...</span></div>
+    <script>
+      $body = $("body");
+      $(document).on({
+        ajaxStart: function() { $body.addClass("loading");    },
+        ajaxStop: function() { $body.removeClass("loading"); }
+      });
+    </script>
+
+    <header>
+      <table class="tblCenter"><tr>
+        <td class="tblLeft"><span>SoI4IoT</span></td>
+        <td class="tblCenter">
+          {% block logger %}{% endblock %} 
+        </td>
+        <td class="tblRight">
+        {% if session.login %}
+          <a href="{{ url_for('soi4ioT_api.user') }}?login={{ session['login'] }}" style="text-align:left;">{{ session['login'] }}</a> / <a href="{{ url_for('logout') }}">log out</a>
+        {% endif %}
+        </td>
+      </tr></table>
+    </header>
+
+    <div class="wrapper">
+      {% if session.login %}
+      <nav>
+        <h2>Nav</h2>
+        <div>
+          <li><a href="{{ url_for('soi4ioT_api.dashboard') }}">Dashboard</a></li>
+          <li><a href="{{ url_for('soi4ioT_api.users') }}">User list</a></li>
+          <li><a href="{{ url_for('soi4ioT_api.new') }}">Create user</a></li>
+        </div>
+      </nav>
+      {% block new %}{% endblock %}
+      {% block user %}{% endblock %}
+      {% block users %}{% endblock %}
+      {% block dashboard %}{% endblock %}
+      <!--dashboard>
+        <div id="dashboardDiv" class="center">
+          <h2>Dashboard</h2>
+          <form action="dashboard" method="POST"><a href="#" id="dashboardSub" style="text-align:left;">Refresh</a></form>
+          <ul id="dashboardRes" class="dashboard"></ul>
+        </div> < /dashboardDiv>
+       </dashboard-->
+     {% endif %}
+    </div> <!-- /wrapper -->
+
+    <footer>
+      <table class="tblCenter">
+        <tr><td colspan="3" class="tblLeft">
+          <span id="result"></span>
+          <div>
+            <!-- extends "flash.html"  -->
+          </div>
+        </td></tr>
+      </table>
+    </footer>
+
+  </body>
+</html>
