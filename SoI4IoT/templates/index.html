@@ -39,7 +39,7 @@
         </td>
         <td class="tblRight">
         {% if session.login %}
-          <a href="{{ url_for('soi4ioT_api.user') }}?login={{ session['login'] }}" style="text-align:left;">{{ session['login'] }}</a> / <a href="{{ url_for('logout') }}">log out</a>
+          <a href="{{ url_for('soi4ioT_api.view') }}?login={{ session['login'] }}" style="text-align:left;">{{ session['login'] }}</a> / <a href="{{ url_for('logout') }}">log out</a>
         {% endif %}
         </td>
       </tr></table>
@@ -51,21 +51,14 @@
         <h2>Nav</h2>
         <div>
           <li><a href="{{ url_for('soi4ioT_api.dashboard') }}">Dashboard</a></li>
-          <li><a href="{{ url_for('soi4ioT_api.users') }}">User list</a></li>
-          <li><a href="{{ url_for('soi4ioT_api.new') }}">Create user</a></li>
+          <li><a href="{{ url_for('soi4ioT_api.list') }}">List</a></li>
+          <li><a href="{{ url_for('soi4ioT_api.new') }}">Create</a></li>
         </div>
       </nav>
       {% block new %}{% endblock %}
-      {% block user %}{% endblock %}
-      {% block users %}{% endblock %}
+      {% block view %}{% endblock %}
+      {% block list %}{% endblock %}
       {% block dashboard %}{% endblock %}
-      <!--dashboard>
-        <div id="dashboardDiv" class="center">
-          <h2>Dashboard</h2>
-          <form action="dashboard" method="POST"><a href="#" id="dashboardSub" style="text-align:left;">Refresh</a></form>
-          <ul id="dashboardRes" class="dashboard"></ul>
-        </div> < /dashboardDiv>
-       </dashboard-->
      {% endif %}
     </div> <!-- /wrapper -->
 
