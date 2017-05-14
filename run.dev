@@ -1,0 +1,39 @@
+#!/bin/bash
+# Target: main script to run the app in dev mode (not for the production as without wsgi)
+# Version: 0.1
+# Date: 2017/01/04
+# Mail: guillain@gmail.com
+# Copyright 2017 GPL - Guillain
+
+# Thanks to run it from the root app folder
+
+HOST=0.0.0.0
+PORT=8084
+
+export ROOT_DIR="`pwd`"
+export CONF_DIR="${ROOT_DIR}/conf"
+export LOG_DIR="${ROOT_DIR}/log"
+
+
+export FLASK_APP='SoI4IoT'
+export FLASK_DEBUG=1
+export FLASK_SETTING="${CONF_DIR}/settings.cfg"
+
+
+case $1 in
+  start) python -m flask run --host $HOST --port $PORT > ${LOG_DIR}/all.log 2>&1 &;;
+  stop) kill -9 `ps aux | grep $PORT | grep $HOST | awk '{print $2}'`;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  status)
+    ps aux | grep $PORT;;
+  manual)
+    python -m flask run --host $HOST --port $PORT;;
+  *) echo "command not found";;
+esac
+
+echo "ToDo for exposure: lt -s soi4iot -p 80"
+
+exit 0
