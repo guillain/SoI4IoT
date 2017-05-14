@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+
+{% block view %}
+        <view>
+          <h2>View</h2>
+          <div id="viewDiv">
+            <form action="viewSub" method="post">
+              <div id="humanDiv" class="array">
+                <table class="center">
+                  <tr><td colspan="2"><h3>Human</h3></td></tr>
+                  <tr><td>Login</td><td><input type="text" name="login" id="login" placeholder="Login" value="{{ view[0] }}" readonly /></td></tr>
+                  <tr><td>Firstname</td><td><input type="text" name="firstname" id="firstname" placeholder="Firstname" value="{{ view[1] }}" readonly /></td></tr>
+                  <tr><td>Lastname</td><td><input type="text" name="lastname" id="lastname" placeholder="Lastname" value="{{ view[2] }}" readonly /></td></tr>
+                  <tr><td>Password</td><td><input type="password" name="password" id="password" placeholder="Password" value="{{ view[3] }}" /></td></tr>
+                  <tr><td>Email</td><td><input type="text" name="email" id="email" placeholder="Email" value="{{ view[4] }}" readonly /></td></tr>
+                  <tr><td>Enterprise</td><td><input type="text" name="enterprise" id="enterprise" placeholder="Enterprise" value="{{ view[5] }}" /></td></tr>
+                  <tr><td>Admin</td><td>
+                  <select id="admin" name="admin" placeholder="Admin" >
+                    {% if view[6] == 1 %}
+                    <option value="1" selected>1</option>
+                    <option value="0" >0</option>
+                    {% else %}
+                    <option value="1" >1</option>
+                    <option value="0" selected>0</option>
+                    {% endif %}
+                  </select>
+                </td></tr>
+                <tr><td>Group</td><td>
+                  <select id="grp" name="grp" placeholder="Group" >
+                    <option value=""></option>
+                    {% for i in config.GROUP.split(' '): %}
+                      {% if i in view[7] %}
+                    <option value="{{i}}" selected>{{ i }}</option>
+                      {% else %}
+                    <option value="{{i}}">{{ i }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+                  </td></tr>
+                </table>
+              </div> <!-- human div -->
+
+              <div id="objectDiv" class="array">
+                <table class="center">
+                  <tr><td colspan="2"><h3>Object</h3></td></tr>
+                  <tr><td>ID</td><td><input type="text" name="deviceid" id="deviceid" placeholder="id" value="{{ view[8] }}" /></td></tr>
+                  <tr><td>Name</td><td><input type="text" name="devicename" id="devicename" placeholder="Name" value="{{ view[9] }}" /></td></tr>
+                  <tr><td>Description</td><td><input type="text" name="devicedescription" id="devicedescription" placeholder="Description" value="{{ view[10] }}" /></td></tr>
+                  <tr><td>Status</td><td><input type="text" name="devicestatus" id="devicestatus" placeholder="Status" value="{{ view[11] }}"/></td></tr>
+                  <tr><td>Updatetime</td><td><input type="text" name="deviceupdate" id="deviceupdate" placeholder="Update time" value="{{ view[12] }}" readonly /></td></tr>
+                </table>
+              </div> <!-- Object div -->
+
+              <div id="localisationDiv" class="array">
+                <table class="center">
+                  <tr><td colspan="2"><h3>Localisation</h3></td></tr>
+                  <tr><td>Address</td><td><input type="text" name="address" id="address" placeholder="Address" value="{{ view[13] }}" /></td></tr>
+                  <tr><td>Mobile</td><td><input type="text" name="mobile" id="mobile" placeholder="Mobile" value="{{ view[14] }}" /></td></tr>
+                  <tr><td>GPS</td><td><input type="text" name="gps" id="gps" placeholder="GPS" value="{{ view[15] }}" /></td></tr>
+                  <tr><td>IP</td><td><input type="text" name="ip" id="ip" placeholder="IP add" value="{{ view[16] }}" /></td></tr>
+                  <tr><td>URL</td><td><input type="text" name="url" id="url" placeholder="URL" value="{{ view[17] }}" /></td></tr>
+                  <tr><td>WebHook</td><td><input type="text" name="webhook" id="webhook" placeholder="WebHook" value="{{ view[18] }}" /></td></tr>
+                  <tr><td>WebSite</td><td><input type="text" name="website" id="website" placeholder="WebSite" value="{{ view[19] }}" /></td></tr>
+                </table>
+              </div> <!-- Localisation div -->
+
+              <div><a href="#" id="update">Update</a></div>
+            </form>
+          </div>
+        </view>
+{% endblock %}
+
