@@ -107,7 +107,7 @@ def update():
 @soi4ioT_api.route('/list', methods=['POST', 'GET'])
 def list():
     try:
-        list = exeReq("SELECT login,email,admin,grp FROM iot;")
+        list = exeReq("SELECT login,email,grp,devicename FROM iot;")
         wEvent('/list','exeReq','Get list','OK')
         return render_template('list.html', list = list)
     except Exception as e:
