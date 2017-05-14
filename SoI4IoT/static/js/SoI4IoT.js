@@ -6,32 +6,6 @@
  Copyright 2017 GPL - Guillain
 ***/
 
-/* dashboard function */
-  $(function() {
-    $('a#dashboardSub').bind('click', function() {
-      $.ajax({
-        url: "dashboard",
-        data: $('form').serialize(),
-        type: 'POST',
-        success: function(data) {
-          console.log(data);
-          var buffer="";
-          $.each(data, function(index, val){
-            if (val.length == 0) {
-              $('#dashboardRes').html('<li>No user found</li>');
-            } else {
-              $('#dashboardRes').html('<li>val</li>');
-            }
-          });
-        },
-        error: function(error) {
-          console.log(error);
-          $("#result").text(error);
-        }
-      });
-    });
-  });
-
 /* newSub click */
   $(function() {
     $('a#newSub').bind('click', function() {
@@ -49,11 +23,11 @@
     });
   });
 
-/* userSub click */
+/* update click */
   $(function() {
-    $('a#userSub').bind('click', function() {
+    $('a#update').bind('click', function() {
         $.ajax({
-            url: 'userSub',
+            url: 'update',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
