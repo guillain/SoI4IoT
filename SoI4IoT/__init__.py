@@ -33,7 +33,7 @@ def my_form():
 def login():
     error = None
     if 'login' in session:
-        return render_template('dashboard.html')
+        return render_template('welcome.html')
 
     login = request.form['login']
     if not login:
@@ -64,7 +64,7 @@ def login():
         session['grp'] = str(data[0][0])
         session['admin'] = str(data[0][1])
         wEvent('/login',session['login'],"User "+session['login']+" logged",'OK')
-        return render_template('dashboard.html')
+        return render_template('welcome.html')
     except Exception as e:
         wEvent('/login','','Wrong email or password','KO')
         return render_template('login.html')
