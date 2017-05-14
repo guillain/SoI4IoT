@@ -10,7 +10,6 @@ add(){
 git pull
 add README.md 'REDAME file'
 add LICENSE 'LICENSE file'
-add .gitattributes 'Git Attributes'
 add requirements.txt 'Software requirement'
 add SoI4IoT.wsgi 'Apache WSGI configuration file'
 add conf/settings.cfg.default 'Default config file to use as template'
