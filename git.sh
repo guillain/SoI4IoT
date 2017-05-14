@@ -32,8 +32,9 @@ add SoI4IoT/templates/view.html "View one element of the IoT DB"
 add SoI4IoT/templates/list.html "List elements of the IoT DB"
 add SoI4IoT/templates/flash.html "Flash message"
 add SoI4IoT/templates/dashboard.html "Dashboard layout to display map"
+add SoI4IoT/templates/welcome.html "Welcome layout"
 add SoI4IoT/templates/index.html "Main layout"
-add SoI4IoT/templates/new.html "User creation form"
+add SoI4IoT/templates/new.html "IoT creation form"
 add SoI4IoT/templates/login.html "Login form"
 add run.dev 'TOOLS: bash script to run web server, for dev only'
 add git.sh 'TOOLS: to comit easily the project to git'
