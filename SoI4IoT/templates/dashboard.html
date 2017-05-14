@@ -3,12 +3,13 @@
 {% block dashboard %}
   <dashboard>
     <div id="map"></div>
+
     <script>
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 2,
-          center: new google.maps.LatLng(2.8,-187.3),
+          center: new google.maps.LatLng(48.858393,2.294468),
           mapTypeId: 'terrain'
         });
 
@@ -22,20 +23,22 @@
 
       // Loop through the results array and place a marker for each
       // set of coordinates.
+      var LatLngListTmp = [];
+      var coords = JSON.parse( '{{ dashboard | tojson }}' );
       window.eqfeed_callback = function(results) {
-        for (var i = 0; i < results.features.length; i++) {
-          var coords = results.features[i].geometry.coordinates;
-          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+        for (var i = 0; i < coords.length; i++) {
+          coordArr = coords[i].toString().split(',');
           var marker = new google.maps.Marker({
-            position: latLng,
+            position: new google.maps.LatLng(coordArr[0],coordArr[1]),
             map: map
           });
         }
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAP_KEY_API }}&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAP_KEY_API }}&callback=initMap">
     </script>
+
   </dashboard>
 {% endblock %}
 
