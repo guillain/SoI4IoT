@@ -29,8 +29,8 @@ add SoI4IoT/static/__init__.py 'App Init file that contain web login mgt'
 add SoI4IoT/static/py/__init__.py 'App init'
 add SoI4IoT/static/py/SoI4IoT.py 'Main program'
 add SoI4IoT/static/py/tools.py 'Tools library as DB connection, wEvent...'
-add SoI4IoT/templates/user.html "User form, to manage one user record"
-add SoI4IoT/templates/users.html "Users form, to manage the list of users"
+add SoI4IoT/templates/view.html "View one element of the IoT DB"
+add SoI4IoT/templates/list.html "List elements of the IoT DB"
 add SoI4IoT/templates/flash.html "Flash message"
 add SoI4IoT/templates/dashboard.html "Dashboard layout to display map"
 add SoI4IoT/templates/index.html "Main layout"
