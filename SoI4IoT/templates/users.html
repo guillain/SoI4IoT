@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block users %}
+    {% if '1' in session.admin %}
+        <users>
+          <div id="usersDiv" class="center">
+            <h2>Users</h2>
+            <table class="center">
+              <tr><th>Login</th><th>Email</th><th>Admin</th><th>Group</th></tr>
+              {% for user in users %}
+              <tr>
+                <!--td><form action="user" method="POST"><a href="/user?login={{ user[0] }}" id="user" style="text-align:left;">{{ user[0] }}</a></form></td-->
+                <td><a href="{{ url_for('soi4ioT_api.user') }}?login={{ user[0] }}" style="text-align:left;">{{ user[0] }}</a></td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </users>
+    {% else %}
+        <span>You're not allowed you access to this feature</span>
+    {% endif %}
+{% endblock %}
+
