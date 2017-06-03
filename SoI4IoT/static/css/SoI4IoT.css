@@ -62,7 +62,7 @@ body {
 header {
   background: #f7f7f7;
 }
-header,nav,list,view,new,welcome,dashboard,footer,div.array {
+header,nav,listUser,viewUser,newUser,listDevice,viewDevice,newDevice,listTracking,viewTracking,newTracking,welcome,gmap,dashboard,footer,div.array {
   margin: .2em; /* .4 */
   padding: 1em; /* 1 */
   border-radius: 6px; /* 6 */
@@ -71,10 +71,15 @@ header,nav,list,view,new,welcome,dashboard,footer,div.array {
 }
 nav {
   width: 10%;
-  height: 140px;
+  height: 120px;
   text-align: left;
 }
-welcome,dashboard,list,new,view {
+listUser,viewUser,newUser,listDevice,viewDevice,newDevice,listTracking,viewTracking,newTracking {
+  width: 90%;
+  height: 400px;
+  text-align: center;
+}
+welcome,gmap,dashboard {
   width: 90%;
   height: 400px;
   text-align: center;
@@ -181,7 +186,7 @@ body {
     order : 0;
     width: auto;
   }
-  welcome,dashboard,new,list,view {
+  welcome,gmap,dashboard,listUser,viewUser,newUser,listDevice,viewDevice,newDevice,listTracking,viewTracking,newTracking {
     width: auto;
   }
   div.array {
