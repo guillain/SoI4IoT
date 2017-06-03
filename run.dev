@@ -8,7 +8,7 @@
 # Thanks to run it from the root app folder
 
 HOST=0.0.0.0
-PORT=8084
+PORT=8080
 
 export ROOT_DIR="`pwd`"
 export CONF_DIR="${ROOT_DIR}/conf"
