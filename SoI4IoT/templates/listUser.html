@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block listUser %}
+    {% if '1' in session.admin %}
+        <listUser>
+          <div id="listUserDiv" class="center">
+            <h2>List User</h2>
+            <table class="center">
+              <tr><th>Login</th><th>Email</th><th>Group</th><th>Tracking</th></tr>
+              {% for view in list %}
+              <tr>
+                <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td>{{ view[1] }}</td>
+                <td>{{ view[2] }}</td>
+                <td><a href="{{ url_for('user_api.mapUser') }}?login={{ view[0] }}" style="text-align:left;">Click</a></td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </listUser>
+    {% else %}
+        <span>You're not allowed you access to this feature</span>
+    {% endif %}
+{% endblock %}
+
