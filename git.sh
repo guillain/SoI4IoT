@@ -26,16 +26,25 @@ add SoI4IoT/static/js/SoI4IoT.js 'jQuery of SoI4IoT'
 add SoI4IoT/static/js/jquery.popupoverlay.js 'Popup mgt'
 add SoI4IoT/static/__init__.py 'App Init file that contain web login mgt'
 add SoI4IoT/static/py/__init__.py 'App init'
-add SoI4IoT/static/py/SoI4IoT.py 'Main program'
+add SoI4IoT/static/py/device.py 'Device script'
+add SoI4IoT/static/py/user.py 'User script'
+add SoI4IoT/static/py/tracking.py 'Tracking script'
+add SoI4IoT/static/py/login.py 'Login script'
 add SoI4IoT/static/py/tools.py 'Tools library as DB connection, wEvent...'
-add SoI4IoT/templates/view.html "View one element of the IoT DB"
-add SoI4IoT/templates/list.html "List elements of the IoT DB"
+add SoI4IoT/templates/viewDevice.html "View one element of the device DB"
+add SoI4IoT/templates/listDevice.html "List elements of the device DB"
+add SoI4IoT/templates/newDevice.html "Device creation form"
+add SoI4IoT/templates/viewUser.html "View one element of the user DB"
+add SoI4IoT/templates/listUser.html "List elements of the user DB"
+add SoI4IoT/templates/newUser.html "User creation form"
+add SoI4IoT/templates/viewTracking.html "View one element of the tracking DB"
+add SoI4IoT/templates/listTracking.html "List elements of the tracking DB"
+add SoI4IoT/templates/newTracking.html "Tracking creation form"
 add SoI4IoT/templates/flash.html "Flash message"
-add SoI4IoT/templates/dashboard.html "Dashboard layout to display map"
 add SoI4IoT/templates/welcome.html "Welcome layout"
 add SoI4IoT/templates/index.html "Main layout"
-add SoI4IoT/templates/new.html "IoT creation form"
 add SoI4IoT/templates/login.html "Login form"
+add SoI4IoT/templates/gmap.html "Generic map form"
 add run.dev 'TOOLS: bash script to run web server, for dev only'
 add git.sh 'TOOLS: to comit easily the project to git'
 
