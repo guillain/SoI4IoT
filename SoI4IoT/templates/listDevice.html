@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block listDevice %}
+    {% if '1' in session.admin %}
+        <listDevice>
+          <div id="listDeviceDiv" class="center">
+            <h2>List Device</h2>
+            <table class="center">
+              <tr><th>Name</th><th>User Login</th><th>Status</th><th>Last Update</th><th>Tracking</th></tr>
+              {% for view in list %}
+              <tr>
+                <td><a href="{{ url_for('device_api.viewDevice') }}?name={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[1] }}" style="text-align:left;">{{ view[1] }}</a></td>
+                <td>{{ view[2] }}</td>
+                <td>{{ view[3] }}</td>
+                <td><a href="{{ url_for('device_api.mapDevice') }}?name={{ view[0] }}" style="text-align:left;">Click</a></td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </listDevice>
+    {% else %}
+        <span>You're not allowed you access to this feature</span>
+    {% endif %}
+{% endblock %}
+
