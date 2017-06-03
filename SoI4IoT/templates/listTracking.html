@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block listTracking %}
+    {% if '1' in session.admin %}
+        <listTracking>
+          <div id="listTrackingDiv" class="center">
+            <h2>List Tracking</h2>
+            <table class="center">
+              <tr><th>ID</th><th>User Login</th><th>Device Name</th><th>Timestamp</th><th>Localisation</th></tr>
+              {% for view in list %}
+              <tr>
+                <td><a href="{{ url_for('tracking_api.viewTracking') }}?tracking={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[1] }}" style="text-align:left;">{{ view[1] }}</a></td>
+                <td><a href="{{ url_for('device_api.viewDevice') }}?name={{ view[2] }}" style="text-align:left;">{{ view[2] }}</a></td>
+                <td>{{ view[3] }}</td>
+                <td>{{ view[4] }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </listTracking>
+    {% else %}
+        <span>You're not allowed you access to this feature</span>
+    {% endif %}
+{% endblock %}
+
