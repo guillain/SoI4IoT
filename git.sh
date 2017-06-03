@@ -31,6 +31,7 @@ add SoI4IoT/static/py/user.py 'User script'
 add SoI4IoT/static/py/tracking.py 'Tracking script'
 add SoI4IoT/static/py/login.py 'Login script'
 add SoI4IoT/static/py/tools.py 'Tools library as DB connection, wEvent...'
+add SoI4IoT/static/py/dashboard.py 'Dashboard script'
 add SoI4IoT/templates/viewDevice.html "View one element of the device DB"
 add SoI4IoT/templates/listDevice.html "List elements of the device DB"
 add SoI4IoT/templates/newDevice.html "Device creation form"
