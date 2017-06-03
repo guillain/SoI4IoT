@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block viewDevice %}
+        <viewDevice>
+          <h2>View Device</h2>
+          <div id="viewDeviceDiv">
+            <form action="viewDevice Sub" method="post">
+              <div id="deviceDiv" class="array">
+                <table class="center">
+                  <tr><td>ID</td><td><input type="number" name="did" id="did" placeholder="Device id" value="{{ view[0] }}" readonly /></td></tr>
+                  <tr><td>User Login</td><td><input type="text" name="login" id="login" placeholder="User Login" value="{{ view[1] }}" /></td></tr>
+                  <tr><td>Name</td><td><input type="text" name="name" id="name" placeholder="Name" value="{{ view[2] }}" readonly /></td></tr>
+                  <tr><td>Description</td><td><input type="text" name="description" id="description" placeholder="Description" value="{{ view[3] }}" /></td></tr>
+                  <tr><td>Status</td><td><input type="text" name="status" id="status" placeholder="Status" value="{{ view[4] }}"/></td></tr>
+                  <tr><td>Last Update</td><td><input type="text" name="lastupdate" id="lastupdate" placeholder="Last Update" value="{{ view[5] }}" /></td></tr>
+                </table>
+              </div> <!-- Device div -->
+              <div><a href="#" id="updateDevice">Update</a></div>
+            </form>
+          </div>
+        </viewDevice>
+{% endblock %}
+
