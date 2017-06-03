@@ -20,7 +20,7 @@
              <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
    </head>
-   <body>
+   <body onload="bodyOnload()">
     <!-- Loading -->
     <div class="modal"><span>Treatment ongoing...</span></div>
     <script>
@@ -30,19 +30,27 @@
         ajaxStop: function() { $body.removeClass("loading"); }
       });
     </script>
-
     <header>
-      <table class="tblCenter"><tr>
-        <td class="tblLeft"><span>SoI4IoT</span></td>
-        <td class="tblCenter">
-          {% block logger %}{% endblock %} 
-        </td>
-        <td class="tblRight">
+      <table class="tblCenter">
+        <tr>
+          <td class="tblLeft"><span>SoI4IoT</span></td>
+          <td class="tblCenter">
+            {% block logger %}{% endblock %} 
+          </td>
+          <td class="tblRight">
+            {% if session.login %}
+            <a href="{{ url_for('user_api.viewUser') }}?login={{ session['login'] }}" style="text-align:left;" id="login">{{ session['login'] }}</a> / <a href="{{ url_for('login_api.logout') }}">log out</a>
+            {% endif %}
+          </td>
+        </tr>
         {% if session.login %}
-          <a href="{{ url_for('soi4ioT_api.view') }}?login={{ session['login'] }}" style="text-align:left;">{{ session['login'] }}</a> / <a href="{{ url_for('logout') }}">log out</a>
+        <tr>
+          <td class="tblLeft"><div><b>User</b> <a href="{{ url_for('user_api.listUser') }}">List</a> <a href="{{ url_for('user_api.newUser') }}">New</a></div></td>
+          <td class="tblCenter"><div><b>Device</b> <a href="{{ url_for('device_api.listDevice') }}">List</a> <a href="{{ url_for('device_api.newDevice') }}">New</a></div></td>
+          <td class="tblRight"><div><b>Tracking</b> <a href="{{ url_for('tracking_api.listTracking') }}">List</a> <a href="{{ url_for('tracking_api.newTracking') }}">New</a></div></td>
+        </tr>
         {% endif %}
-        </td>
-      </tr></table>
+      </table>
     </header>
 
     <div class="wrapper">
@@ -50,15 +58,23 @@
       <nav>
         <h2>Nav</h2>
         <div>
-          <li><a href="{{ url_for('soi4ioT_api.dashboard') }}">Dashboard</a></li>
-          <li><a href="{{ url_for('soi4ioT_api.list') }}">List</a></li>
-          <li><a href="{{ url_for('soi4ioT_api.new') }}">New</a></li>
+          <li><a href="{{ url_for('dashboard_api.dashboard') }}">Dashboard</a></li>
+          <li id="gps" onClick="sendHTMLgps()"><a href="#">Push Position</a></li>
         </div>
       </nav>
-      {% block new %}{% endblock %}
-      {% block view %}{% endblock %}
-      {% block list %}{% endblock %}
-      {% block dashboard %}{% endblock %}
+      {% block newUser %}{% endblock %}
+      {% block viewUser %}{% endblock %}
+      {% block listUser %}{% endblock %}
+
+      {% block newDevice %}{% endblock %}
+      {% block viewDevice %}{% endblock %}
+      {% block listDevice %}{% endblock %}
+
+      {% block newTracking %}{% endblock %}
+      {% block viewTracking %}{% endblock %}
+      {% block listTracking %}{% endblock %}
+
+      {% block gmap %}{% endblock %}
       {% block welcome %}{% endblock %}
      {% endif %}
     </div> <!-- /wrapper -->
