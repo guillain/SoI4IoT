@@ -2,7 +2,7 @@
 
 {% block logger %}
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-  <form action="{{ url_for('login') }}" method=post>
+  <form action="{{ url_for('login_api.login') }}" method=post>
     <dl>
       <dt>Username:
       <dd><input type="text" name="login">
