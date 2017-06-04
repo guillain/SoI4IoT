@@ -2,7 +2,7 @@
 {% block listTracking %}
     {% if '1' in session.admin %}
         <listTracking>
-          <div id="listTrackingDiv" class="center">
+          <div id="listTrackingDiv">
             <h2>List Tracking</h2>
             <table class="center">
               <tr><th>ID</th><th>User Login</th><th>Device Name</th><th>Timestamp</th><th>Localisation</th></tr>
@@ -18,6 +18,7 @@
             </table>
           </div>
         </listTracking>
+        {% include 'map.html' %}
     {% else %}
         <span>You're not allowed you access to this feature</span>
     {% endif %}
