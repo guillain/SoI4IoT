@@ -1,4 +1,4 @@
-VERSION="1.0.0"
+VERSION="1.1.0"
 USER='guillain'
 
 add(){
@@ -32,15 +32,12 @@ add SoI4IoT/static/py/tracking.py 'Tracking script'
 add SoI4IoT/static/py/login.py 'Login script'
 add SoI4IoT/static/py/tools.py 'Tools library as DB connection, wEvent...'
 add SoI4IoT/static/py/dashboard.py 'Dashboard script'
-add SoI4IoT/templates/viewDevice.html "View one element of the device DB"
 add SoI4IoT/templates/listDevice.html "List elements of the device DB"
-add SoI4IoT/templates/newDevice.html "Device creation form"
-add SoI4IoT/templates/viewUser.html "View one element of the user DB"
+add SoI4IoT/templates/device.html "Device form"
 add SoI4IoT/templates/listUser.html "List elements of the user DB"
-add SoI4IoT/templates/newUser.html "User creation form"
-add SoI4IoT/templates/viewTracking.html "View one element of the tracking DB"
+add SoI4IoT/templates/user.html "User form"
 add SoI4IoT/templates/listTracking.html "List elements of the tracking DB"
-add SoI4IoT/templates/newTracking.html "Tracking creation form"
+add SoI4IoT/templates/tracking.html "Tracking form"
 add SoI4IoT/templates/flash.html "Flash message"
 add SoI4IoT/templates/welcome.html "Welcome layout"
 add SoI4IoT/templates/index.html "Main layout"
