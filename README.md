@@ -13,6 +13,7 @@ Provide web management interface to track and manage IoT activities
 ## Doc
 * [Install](doc/install.md)
 * [ToDo](doc/todo.md)
+* [Bug](doc/bug.md)
 
 ## Management
 ### User
