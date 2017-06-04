@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent
+from tools import logger, exeReq, wEvent, getMaps
 
 import re, os, sys, urllib
 
@@ -23,7 +23,7 @@ api.config.from_envvar('FLASK_SETTING')
 @user_api.route('/newUser', methods=['POST', 'GET'])
 def newUser():
     wEvent('/newUser','request','Get new user','')
-    return render_template('user.html')
+    return render_template('user.html', maps = '')
 
 # Save User ---------------------------------------------------
 @user_api.route('/saveUser', methods=['POST'])
@@ -56,7 +56,7 @@ def viewUser():
         sql += "FROM user WHERE login = '" + request.args['login'] + "';"
         view = exeReq(sql)
         wEvent('/viewUser','exeReq','Get','OK')
-        return render_template('user.html', view = view[0])
+        return render_template('user.html', view = view[0], maps = getMaps())
     except Exception as e:
         wEvent('/viewUser','exeReq','Get','KO')
         return 'View error'
@@ -67,20 +67,7 @@ def listUser():
     try:
         list = exeReq("SELECT login, email, grp FROM user;")
         wEvent('/listUser','exeReq','Get','OK')
-        return render_template('listUser.html', list = list)
+        return render_template('listUser.html', list = list, maps = getMaps())
     except Exception as e:
         wEvent('/listUser','exeReq','Get','KO')
         return 'List error'
-
-# Map User ---------------------------------------------------------
-@user_api.route('/mapUser', methods=['GET', 'POST'])
-def mapUser():
-    print 'hello'
-    print request.args['login']
-    try:
-        gmap = exeReq("SELECT t.gps FROM tracking t, user u WHERE t.uid = u.uid AND u.login = '" + request.args['login'] + "';")
-        wEvent('/mapUser','exeReq','Get','OK')
-        return render_template('gmap.html', gmap = gmap)
-    except Exception as e:
-        wEvent('/mapUser','exeReq','Get','KO')
-        return 'Map error'
