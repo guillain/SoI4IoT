@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent, getMaps
+from tools import logger, exeReq, wEvent, getMaps, loginList
 
 import re, os, sys, urllib
 
@@ -23,7 +23,7 @@ api.config.from_envvar('FLASK_SETTING')
 @device_api.route('/newDevice', methods=['POST', 'GET'])
 def newDevice():
     wEvent('/newDevice', 'request','Get new device','')
-    return render_template('device.html', maps = '')
+    return render_template('device.html', maps = '', loginList = loginList())
 
 # Save device ------------------------------------------------
 @device_api.route('/saveDevice', methods=['POST'])
@@ -51,7 +51,7 @@ def viewDevice():
         sql += "WHERE d.uid = u.uid AND d.name = '" + request.args['name'] + "';"
         view = exeReq(sql)
         wEvent('/viewDevice','exeReq','Get','OK')
-        return render_template('device.html', view = view[0], maps = getMaps())
+        return render_template('device.html', view = view[0], maps = getMaps(), loginList = loginList())
     except Exception as e:
         wEvent('/viewDevice ','exeReq','Get','KO')
         return 'View error'
