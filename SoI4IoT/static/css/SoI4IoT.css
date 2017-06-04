@@ -62,7 +62,7 @@ body {
 header {
   background: #f7f7f7;
 }
-header,nav,listUser,viewUser,newUser,listDevice,viewDevice,newDevice,listTracking,viewTracking,newTracking,welcome,gmap,dashboard,footer,div.array {
+header,nav,listUser,user,device,listDevice,listTracking,tracking,welcome,gmap,dashboard,footer,div.array {
   margin: .2em; /* .4 */
   padding: 1em; /* 1 */
   border-radius: 6px; /* 6 */
@@ -74,7 +74,7 @@ nav {
   height: 120px;
   text-align: left;
 }
-listUser,viewUser,newUser,listDevice,viewDevice,newDevice,listTracking,viewTracking,newTracking {
+listUser,user,listDevice,device,listTracking,tracking {
   width: 90%;
   height: 400px;
   text-align: center;
@@ -186,7 +186,7 @@ body {
     order : 0;
     width: auto;
   }
-  welcome,gmap,dashboard,listUser,viewUser,newUser,listDevice,viewDevice,newDevice,listTracking,viewTracking,newTracking {
+  welcome,gmap,dashboard,listUser,user,listDevice,device,listTracking,tracking {
     width: auto;
   }
   div.array {
