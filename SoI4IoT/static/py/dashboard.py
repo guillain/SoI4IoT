@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent
+from tools import logger, exeReq, wEvent, getMaps
 
 import re, os, sys, urllib
 
@@ -23,9 +23,8 @@ api.config.from_envvar('FLASK_SETTING')
 @dashboard_api.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     try:
-        dashboard = exeReq("SELECT gps FROM tracking;")
         wEvent('/dashboard','exeReq','Get','OK')
-        return render_template('gmap.html', gmap = dashboard)
+        return render_template('dashboard.html', maps = getMaps())
     except Exception as e:
         wEvent('/dashboard','exeReq','Get','KO')
         return 'Dashboard error'
