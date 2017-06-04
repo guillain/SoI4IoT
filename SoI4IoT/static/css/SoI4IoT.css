@@ -57,12 +57,12 @@ body {
 /*  font-family: arial, sans-serif; */
   font-family: Helvetica Neue,Arial;
   font-size: 10; /*rem;*/
-  font-weight: 200;
+  font-weight: 100;
 }
 header {
   background: #f7f7f7;
 }
-header,nav,listUser,user,device,listDevice,listTracking,tracking,welcome,gmap,dashboard,footer,div.array {
+header,nav,listUser,user,device,listDevice,listTracking,tracker,tracking,welcome,gmap,dashboard,footer,div.array {
   margin: .2em; /* .4 */
   padding: 1em; /* 1 */
   border-radius: 6px; /* 6 */
@@ -71,21 +71,27 @@ header,nav,listUser,user,device,listDevice,listTracking,tracking,welcome,gmap,da
 }
 nav {
   width: 10%;
-  height: 120px;
+  height: 100%;
   text-align: left;
 }
-listUser,user,listDevice,device,listTracking,tracking {
-  width: 90%;
+listUser,user,listDevice,device,listTracking,tracker,tracking {
+  width: 45%;
+  height: 100%;
+  max-height: 400px;
+  text-align: center;
+}
+gmap {
+  width: 45%;
   height: 400px;
   text-align: center;
 }
-welcome,gmap,dashboard {
+welcome,dashboard {
   width: 90%;
   height: 400px;
   text-align: center;
 }
 div.array{
-  width:30%;
+  width:100%;
   display: inline-block;
 }
 
@@ -148,8 +154,8 @@ select, textarea, input, button {
    float: left;
    margin: 10px;
    padding: 10px;
-   max-width: 300px;
-   height: 300px;
+   max-width: 600px;
+   height: 600px;
    border: 0; /* 1px solid black; */
 }
 /*#botMsgDiv {
@@ -186,7 +192,7 @@ body {
     order : 0;
     width: auto;
   }
-  welcome,gmap,dashboard,listUser,user,listDevice,device,listTracking,tracking {
+  welcome,gmap,dashboard,listUser,user,listDevice,device,listTracking,tracker,tracking {
     width: auto;
   }
   div.array {
