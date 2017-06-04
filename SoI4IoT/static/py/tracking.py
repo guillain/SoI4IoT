@@ -41,7 +41,6 @@ def recGPS():
         wEvent('/recGPS','exeReq','Add or update web device','KO')
         return 'Add or update web device error'
 
-    print did[0][0]
     # Add new localisation
     try:
         sql  = "INSERT INTO tracking SET "
@@ -54,27 +53,35 @@ def recGPS():
         wEvent('/recGPS','exeReq','GPS record','KO')
         return 'GPS record error'
 
-# Tracking creation -------------------------------------------
+# Tracking creation form -------------------------------------------
 @tracking_api.route('/newTracking', methods=['POST', 'GET'])
 def newTracking():
     wEvent('/newTracking','request','Get new tracking','')
-    return render_template('newTracking.html')
+    return render_template('tracking.html')
 
-@tracking_api.route('/newTrackingSub', methods=['POST'])
-def newTrackingSub():
+# Save Tracking ---------------------------------------------------
+@tracking_api.route('/saveTracking', methods=['POST'])
+def saveTracking():
     try:
         sql  = "INSERT INTO tracking SET "
-        sql += "  (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
-        sql += "  (SELECT did FROM device WHERE name = '" + request.form['name'] + "'), "
+        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
+        sql += "  did = (SELECT did FROM device WHERE name = '" + request.form['name'] + "'), "
         sql += "  gps = '" + request.form['gps'] + "', url = '" +request.form['url'] + "', "
         sql += "  website = '" + request.form['website'] + "', webhook = '" + request.form['webhook'] + "', "
-        sql += "  address = '" + request.form['address'] + "', timestamp = '" + request.form['timestamp'] + "';"
+        sql += "  address = '" + request.form['address'] + "', ip = '" +request.form['ip'] + "' "
+        sql += "ON DUPLICATE KEY UPDATE "
+        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
+        sql += "  did = (SELECT did FROM device WHERE name = '" + request.form['name'] + "'), "
+        sql += "  gps = '" + request.form['gps'] + "', url = '" +request.form['url'] + "', "
+        sql += "  website = '" + request.form['website'] + "', webhook = '" + request.form['webhook'] + "', "
+        sql += "  address = '" + request.form['address'] + "', ip = '" +request.form['ip'] + "';"
+        print sql
         exeReq(sql)
-        wEvent('/newTrackingSub','exeReq','Creation','OK')
-        return 'Creation OK'
+        wEvent('/saveTracking','exeReq','Save','OK')
+        return 'Save OK'
     except Exception as e:
-        wEvent('/newTrackingSub','exeReq','Creation','KO')
-        return 'Creation error'
+        wEvent('/saveTracking','exeReq','Save','KO')
+        return 'Save error'
 
 # View Tracking ---------------------------------------------------
 @tracking_api.route('/viewTracking', methods=['POST', 'GET'])
@@ -85,26 +92,10 @@ def viewTracking():
         sql += "WHERE u.uid = t.uid AND t.tid = '" + request.args['tracking'] + "';"
         view = exeReq(sql)
         wEvent('/viewTracking','exeReq','Get','OK')
-        return render_template('viewTracking.html', view = view[0])
+        return render_template('tracking.html', view = view[0])
     except Exception as e:
         wEvent('/viewTracking','exeReq','Get','KO')
         return 'View error'
-
-# Update Tracking -------------------------------------------------
-@tracking_api.route('/updateTracking', methods=['POST'])
-def updateTracking():
-    try:
-        sql  = "UPDATE tracking t, user u SET t.uid = u.uid, t.ip = '" + request.form['ip'] + "', "
-        sql += "  t.gps = '" + request.form['gps'] + "', url = '" +request.form['url'] + "', "
-        sql += "  t.website = '" + request.form['website'] + "', t.webhook = '" + request.form['webhook'] + "', "
-        sql += "  t.address = '" + request.form['address'] + "', t.timestamp = '" + request.form['timestamp'] + "' "
-        sql += "WHERE t.tid  = '" + request.form['tid']  + "' AND t.uid = u.uid;"
-        exeReq(sql)
-        wEvent('/updateTracking','exeReq','Update','OK')
-        return 'Update OK'
-    except Exception as e:
-        wEvent('/updateTracking','exeReq','Update','KO')
-        return 'Update error'
 
 # List Tracking --------------------------------------------------------
 @tracking_api.route('/listTracking', methods=['POST', 'GET'])
