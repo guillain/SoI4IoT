@@ -33,6 +33,9 @@ app.register_blueprint(tracking_api)
 from static.py.dashboard import dashboard_api
 app.register_blueprint(dashboard_api)
 
+from static.py.tracker import tracker_api
+app.register_blueprint(tracker_api)
+
 # WEB mgt ----------------------------------------
 @app.route('/')
 def my_form():
