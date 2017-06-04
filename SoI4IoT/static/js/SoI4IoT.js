@@ -60,6 +60,33 @@
     });
   });
 
+/* TRACKER */
+/* Refresh function */
+  function trackerFct(){
+    $.ajax({
+      url: 'saveTracker',
+      data: $('form').serialize(),
+      type: 'POST',
+      success: function(data) {
+        $("#result").text(data);
+        sendHTMLgps();
+        if( (document.getElementById("timer").value != '0') && (document.getElementById("timer").value != '') ) {
+          setTimeout(trackerFct, document.getElementById("timer").value * 1000);
+        }
+      },
+      error: function(error) {
+        $("#result").text(error);
+      }
+    });
+  }
+
+/* saveTracker click */
+  $(function() {
+    $('a#saveTracker').bind('click', function() {
+      trackerFct();
+    });
+  });
+
 /* ADD FEATURES */
 /* display additionnal info when onmouse */
 function onmouseoveragent(el) {
