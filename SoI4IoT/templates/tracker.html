@@ -6,10 +6,20 @@
             <form action="tracker" method="POST">
               <div id="TrackerDiv">
                 <table class="center">
-                  <tr><td>User Login</td><td><input type="text" name="login" id="login" placeholder="User Login" /></td></tr>
-                  <tr><td>Device Name</td><td><input type="text" name="name" id="name" placeholder="Name" /></td></tr>
-                  <tr><td>Timer</td><td><input type="number" name="timer" id="timer" placeholder="Timer (s)" /></td></tr>
-                  <tr><td><div id="saveTrackerDiv"><a href="#" id="saveTracker">Apply</a></div></td></tr>
+                  <tr>
+                    <td>User Login</td>
+                    <td>{% with index=0 %}{% include 'field/login.tpl' %}{% endwith %}
+                  </tr>
+                    <td>Device Name</td>
+                    <td>{% with index=1 %}{% include 'field/name.tpl' %}{% endwith %}
+                  </tr>
+                  <tr>
+                    <td>Timer</td>
+                    <td><input type="number" name="timer" id="timer" placeholder="Timer (s)" /></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><div id="saveTrackerDiv"><a href="#" id="saveTracker">Apply</a></div></td>
+                  </tr>
                 </table>
               </div> <!-- Object div -->
             </form>
