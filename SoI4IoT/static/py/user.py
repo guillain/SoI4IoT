@@ -19,13 +19,14 @@ api = Flask(__name__)
 api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
-# User creation -------------------------------------------
+# User creation form -------------------------------------------
 @user_api.route('/newUser', methods=['POST', 'GET'])
 def newUser():
     wEvent('/newUser','request','Get new user','')
-    return render_template('newUser.html')
+    return render_template('user.html')
 
-@user_api.route('/newUserSub', methods=['POST'])
+# Save User ---------------------------------------------------
+@user_api.route('/saveUser', methods=['POST'])
 def newUserSub():
     try:
         sql  = "INSERT INTO user SET login = '" + request.form['login'] + "', "
@@ -33,13 +34,19 @@ def newUserSub():
         sql += "  email = '" + request.form['email'] + "', address = '" +request.form['address'] + "', "
         sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
         sql += "  password = '" + request.form['password'] + "', enterprise = '" + request.form['enterprise'] + "', "
+        sql += "  mobile = '" + request.form['mobile'] + "' "
+        sql += "ON DUPLICATE KEY UPDATE "
+        sql += "  firstname = '" + request.form['firstname'] + "', lastname = '" + request.form['lastname'] + "', "
+        sql += "  email = '" + request.form['email'] + "', address = '" +request.form['address'] + "', "
+        sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
+        sql += "  password = '" + request.form['password'] + "', enterprise = '" + request.form['enterprise'] + "', "
         sql += "  mobile = '" + request.form['mobile'] + "';"
         exeReq(sql)
-        wEvent('/newUserSub','exeReq','Creation','OK')
-        return 'Creation OK'
+        wEvent('/saveUser','exeReq','Save','OK')
+        return 'Save OK'
     except Exception as e:
-        wEvent('/newUserSub','exeReq','Creation','KO')
-        return 'Creation error'
+        wEvent('/saveUser','exeReq','Save','KO')
+        return 'Save error'
 
 # View User ---------------------------------------------------
 @user_api.route('/viewUser', methods=['POST', 'GET'])
@@ -49,27 +56,10 @@ def viewUser():
         sql += "FROM user WHERE login = '" + request.args['login'] + "';"
         view = exeReq(sql)
         wEvent('/viewUser','exeReq','Get','OK')
-        return render_template('viewUser.html', view = view[0])
+        return render_template('user.html', view = view[0])
     except Exception as e:
         wEvent('/viewUser','exeReq','Get','KO')
         return 'View error'
-
-# Update User -------------------------------------------------
-@user_api.route('/updateUser', methods=['POST'])
-def updateUser():
-    try:
-        sql  = "UPDATE user SET "
-        sql += "  firstname = '" + request.form['firstname'] + "', lastname = '" + request.form['lastname'] + "', "
-        sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
-        sql += "  password = '" + request.form['password'] +"', enterprise = '" + request.form['enterprise'] + "', "
-        sql += "  mobile = '" + request.form['mobile'] + "', address = '" + request.form['address'] + "' "
-        sql += "WHERE login = '" + request.form['login'] + "';"
-        exeReq(sql)
-        wEvent('/updateUser','exeReq','Update','OK')
-        return 'Update OK'
-    except Exception as e:
-        wEvent('/updateUser','exeReq','Update','KO')
-        return 'Update error'
 
 # List User --------------------------------------------------------
 @user_api.route('/listUser', methods=['POST', 'GET'])
@@ -94,5 +84,3 @@ def mapUser():
     except Exception as e:
         wEvent('/mapUser','exeReq','Get','KO')
         return 'Map error'
-
-
