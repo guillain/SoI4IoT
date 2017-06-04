@@ -5,7 +5,7 @@
           <h2>Device</h2>
           <div id="deviceDiv">
             <form action="device Sub" method="post">
-              <div id="deviceDiv" class="array">
+              <div id="deviceDiv">
                 <table class="center">
                   <tr><td>ID</td><td><input type="number" name="did" id="did" placeholder="Device id" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td></tr>
                   <tr><td>User Login</td><td><input type="text" name="login" id="login" placeholder="User Login" value="{% if view is defined %}{{ view[1] }}{% endif %}" /></td></tr>
@@ -19,5 +19,6 @@
             </form>
           </div>
         </device>
+        {% include 'map.html' %}
 {% endblock %}
 
