@@ -11,6 +11,13 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
+# Get user list
+def loginList():
+  return exeReq("SELECT DISTINCT login FROM user ORDER BY login")
+
+def nameList():
+  return exeReq("SELECT DISTINCT name FROM device ORDER BY name")
+
 # GPS SQL fct
 def getMaps():
     # User arg as SQL condition
