@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent, getMaps
+from tools import logger, exeReq, wEvent, getMaps, loginList, nameList
 
 import re, os, sys, urllib
 
@@ -24,7 +24,7 @@ api.config.from_envvar('FLASK_SETTING')
 def tracker():
     try:
         wEvent('/tracker','exeReq','Get','OK')
-        return render_template('tracker.html', maps = getMaps())
+        return render_template('tracker.html', maps = getMaps(), loginList = loginList(), nameList = nameList())
     except Exception as e:
         wEvent('/tracker','exeReq','Get','KO')
         return 'Tracker error'
