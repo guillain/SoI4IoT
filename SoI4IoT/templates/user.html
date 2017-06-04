@@ -36,23 +36,7 @@
                   </tr>
                   <tr>
                     <td>Group</td>
-                      <td>
-                        <select id="grp" name="grp" placeholder="Group" >
-                          <option value=""></option>
-                          {% for i in config.GROUP.split(' '): %}
-                          {% if view is defined %}
-                          {% if i in view[7] %}
-                          <option value="{{i}}" selected>{{ i }}</option>
-                          {% else %}
-                          <option value="{{i}}">{{ i }}</option>
-                          {% endif %}
-                          {% else %}
-                          <option value="{{i}}">{{ i }}</option>
-                          {% endif %}
-                          {% endfor %}
-                        </select>
-                      </td>
-                    </tr>
+                    <td>{% with index=7 %}{% include 'field/group.tpl' %}{% endwith %}
                   <tr>
                     <td>Mobile</td>
                     <td><input type="text" name="mobile" id="mobile" placeholder="Mobile" value="{% if view is defined %}{{ view[8] }}{% endif %}" /></td>
@@ -63,22 +47,7 @@
                   </tr>
                   <tr>
                     <td>Admin</td>
-                    <td>
-                      <select id="admin" name="admin" placeholder="Admin" >
-                        {% if view is defined %} 
-                        {% if view[10] == 1 %}
-                        <option value="1" selected>1</option>
-                        <option value="0" >0</option>
-                        {% else %}
-                        <option value="1" >1</option>
-                        <option value="0" selected>0</option>
-                        {% endif %}
-                        {% else %}
-                        <option value="1" >1</option>
-                        <option value="0" selected>0</option>
-                        {% endif %}
-                      </select>
-                    </td>
+                    <td>{% with index=10 %}{% include 'field/admin.tpl' %}{% endwith %}
                   </tr>
                 </table>
               </div> <!-- user div -->
