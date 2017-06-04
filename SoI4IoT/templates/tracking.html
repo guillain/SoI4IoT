@@ -6,16 +6,82 @@
             <form action="trackingSub" method="post">
               <div id="TrackingDiv">
                 <table class="center">
-                  <tr><td>ID</td><td><input type="number" name="tracking" id="tracking" placeholder="Tracking ID" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td></tr>
-                  <tr><td>User Login</td><td><input type="text" name="login" id="login" placeholder="User Login" value="{% if view is defined %}{{ view[1] }}{% endif %}" /></td></tr>
-                  <tr><td>Device Name</td><td><input type="text" name="name" id="name" placeholder="Device name" value="{% if view is defined %}{{ view[2] }}{% endif %}" /></td></tr>
-                  <tr><td>IP</td><td><input type="text" name="ip" id="ip" placeholder="IP add" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td></tr>
-                  <tr><td>GPS</td><td><input type="text" name="gps" id="gps" placeholder="GPS" value="{% if view is defined %}{{ view[4] }}{% endif %}" /></td></tr>
-                  <tr><td>URL</td><td><input type="text" name="url" id="url" placeholder="URL" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td></tr>
-                  <tr><td>WebSite</td><td><input type="text" name="website" id="website" placeholder="WebSite" value="{% if view is defined %}{{ view[6] }}{% endif %}" /></td></tr>
-                  <tr><td>WebHook</td><td><input type="text" name="webhook" id="webhook" placeholder="WebHook" value="{% if view is defined %}{{ view[7] }}{% endif %}" /></td></tr>
-                  <tr><td>Address</td><td><input type="text" name="address" id="address" placeholder="Address" value="{% if view is defined %}{{ view[8] }}{% endif %}" /></td></tr>
-                  <tr><td>Timestamp</td><td><input type="text" name="timestamp" id="timestamp" placeholder="Timestamp" value="{% if view is defined %}{{ view[9] }}{% endif %}" /></td></tr>
+                  <tr>
+                    <td>ID</td>
+                    <td><input type="number" name="tracking" id="tracking" placeholder="Tracking ID" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td>
+                  </tr>
+                  <tr>
+                    <td>User Login</td>
+                    {% if loginList is defined %}
+                    <td>
+                      <select id="login" name="login" placeholder="User Login" >
+                      {% for i in loginList: %}
+                        {% if view is defined %}
+                          {% if i[0] in view[1] %}
+                          <option value="{{ i[0] }}" selected>{{ i[0] }}</option>
+                          {% else %}
+                          <option value="{{ i[0] }}">{{ i[0] }}</option>
+                          {% endif %}
+                        {% else %}
+                          <option value="{{ i[0] }}">{{ i[0] }}</option>
+                        {% endif %}
+                      {% endfor %}
+                      </select>
+                    </td>
+                    {% else %}
+                    <td><input type="text" name="login" id="login" placeholder="User Login" value="{% if view is defined %}{{ view[1] }}{% endif %}" /></td>
+                    {% endif %}
+                  </tr>
+                  <tr>
+                    <td>Device Name</td>
+                    {% if nameList is defined %}
+                    <td>
+                      <select id="name" name="name" placeholder="Device Name" >
+                      {% for i in nameList: %}
+                       {% if view is defined %}
+                          {% if i[0] in view[2] %}
+                          <option value="{{ i[0] }}" selected>{{ i[0] }}</option>
+                          {% else %}
+                          <option value="{{ i[0] }}">{{ i[0] }}</option>
+                          {% endif %}
+                        {% else %}
+                          <option value="{{ i[0] }}">{{ i[0] }}</option>
+                        {% endif %}
+                      {% endfor %}
+                      </select>
+                    </td>
+                    {% else %}
+                    <td><input type="text" name="name" id="name" placeholder="Name" value="{% if view is defined %}{{ view[2] }}{% endif %}" {% if view is defined %} readonly {% endif %} /></td>
+                    {% endif %}
+                  </tr>
+                  <tr>
+                    <td>IP</td>
+                    <td><input type="text" name="ip" id="ip" placeholder="IP add" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>GPS</td>
+                    <td><input type="text" name="gps" id="gps" placeholder="GPS" value="{% if view is defined %}{{ view[4] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>URL</td>
+                    <td><input type="text" name="url" id="url" placeholder="URL" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>WebSite</td>
+                    <td><input type="text" name="website" id="website" placeholder="WebSite" value="{% if view is defined %}{{ view[6] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>WebHook</td>
+                    <td><input type="text" name="webhook" id="webhook" placeholder="WebHook" value="{% if view is defined %}{{ view[7] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>Address</td>
+                    <td><input type="text" name="address" id="address" placeholder="Address" value="{% if view is defined %}{{ view[8] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>Timestamp</td>
+                    <td><input type="text" name="timestamp" id="timestamp" placeholder="Timestamp" value="{% if view is defined %}{{ view[9] }}{% endif %}" /></td>
+                  </tr>
                 </table>
               </div> <!-- Tracking div -->
               <div id="saveTrackingDiv"><a href="#" id="saveTracking">Save</a></div>
