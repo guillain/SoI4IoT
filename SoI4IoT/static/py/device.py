@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent
+from tools import logger, exeReq, wEvent, getMaps
 
 import re, os, sys, urllib
 
@@ -23,16 +23,17 @@ api.config.from_envvar('FLASK_SETTING')
 @device_api.route('/newDevice', methods=['POST', 'GET'])
 def newDevice():
     wEvent('/newDevice', 'request','Get new device','')
-    return render_template('device.html')
+    return render_template('device.html', maps = '')
 
 # Save device ------------------------------------------------
 @device_api.route('/saveDevice', methods=['POST'])
 def newDeviceSub():
     try:
-        sql  = "INSERT INTO device SET uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
-        sql += "  name = '" + request.form['name'] + "', "
+        sql  = "INSERT INTO device SET name = '" + request.form['name'] + "', "
+        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
         sql += "  status = '" + request.form['status'] + "', description = '" + request.form['description'] + "' "
-        sql += "ON DUPLICATE KEY UPDATE uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
+        sql += "ON DUPLICATE KEY UPDATE "
+        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
         sql += "  status = '" + request.form['status'] + "', description = '" + request.form['description'] + "';"
         exeReq(sql)
         wEvent('/saveDevice','exeReq','Save','OK')
@@ -50,7 +51,7 @@ def viewDevice():
         sql += "WHERE d.uid = u.uid AND d.name = '" + request.args['name'] + "';"
         view = exeReq(sql)
         wEvent('/viewDevice','exeReq','Get','OK')
-        return render_template('device.html', view = view[0])
+        return render_template('device.html', view = view[0], maps = getMaps())
     except Exception as e:
         wEvent('/viewDevice ','exeReq','Get','KO')
         return 'View error'
@@ -64,19 +65,8 @@ def listDevice():
         sql += "WHERE d.uid = u.uid;"
         list = exeReq(sql)
         wEvent('/listDevice','exeReq','Get list','OK')
-        return render_template('listDevice.html', list = list)
+        return render_template('listDevice.html', list = list, maps = getMaps())
     except Exception as e:
         wEvent('/listDevice','exeReq','Get list','KO')
         return 'List error'
-
-# Map ----------------------------------------------------------
-@device_api.route('/mapDevice', methods=['GET', 'POST'])
-def mapDevice():
-    try:
-        data = exeReq("SELECT t.gps FROM tracking t, device d WHERE t.did = d.did AND d.name = '" + request.args['name'] + "';")
-        wEvent('/mapDevice','exeReq','Get','OK')
-        return render_template('gmap.html', gmap = data)
-    except Exception as e:
-        wEvent('/mapDevice','exeReq','Get','KO')
-        return 'Map error'
 
