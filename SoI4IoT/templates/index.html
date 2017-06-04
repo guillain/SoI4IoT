@@ -60,6 +60,7 @@
         <div>
           <li><a href="{{ url_for('dashboard_api.dashboard') }}">Dashboard</a></li>
           <li id="gps" onClick="sendHTMLgps()"><a href="#">Push Position</a></li>
+          <li><a href="{{ url_for('tracker_api.tracker') }}">Tracker</a></li>
         </div>
       </nav>
       {% block user %}{% endblock %}
@@ -73,6 +74,8 @@
 
       {% block gmap %}{% endblock %}
       {% block welcome %}{% endblock %}
+      {% block tracker %}{% endblock %}
+      {% block dashboard %}{% endblock %}
      {% endif %}
     </div> <!-- /wrapper -->
 
