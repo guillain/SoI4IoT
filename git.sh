@@ -19,8 +19,11 @@ add conf/mysql.sql 'MySQL structure'
 add test/test.wsgi 'Test file for Apache WSGI'
 add doc/install.md "Install doc file"
 add doc/todo.md "ToDo doc file"
+add doc/User.png "Picture: User"
 add doc/List_User.png "Picture: List user"
+add doc/Device.png "Picture: Device"
 add doc/List_Device.png "Picture: List device"
+add doc/Tracking.png "Picture: Tracking"
 add doc/List_Tracking.png "Picture: List tracking"
 add doc/Tracker.png "Picture: Tracker"
 add SoI4IoT/__init__.py 'App init'
