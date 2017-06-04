@@ -19,24 +19,27 @@ api = Flask(__name__)
 api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
-# Device creation -------------------------------------------
+# Device creation form -------------------------------------------
 @device_api.route('/newDevice', methods=['POST', 'GET'])
 def newDevice():
     wEvent('/newDevice', 'request','Get new device','')
-    return render_template('newDevice.html')
+    return render_template('device.html')
 
-@device_api.route('/newDeviceSub', methods=['POST'])
+# Save device ------------------------------------------------
+@device_api.route('/saveDevice', methods=['POST'])
 def newDeviceSub():
     try:
         sql  = "INSERT INTO device SET uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
-        sql += "  lastupdate = '" + request.form['lastupdate'] + "', name = '" + request.form['name'] + "', "
+        sql += "  name = '" + request.form['name'] + "', "
+        sql += "  status = '" + request.form['status'] + "', description = '" + request.form['description'] + "' "
+        sql += "ON DUPLICATE KEY UPDATE uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
         sql += "  status = '" + request.form['status'] + "', description = '" + request.form['description'] + "';"
         exeReq(sql)
-        wEvent('/newDeviceSub','exeReq','Creation','OK')
-        return 'Creation OK'
+        wEvent('/saveDevice','exeReq','Save','OK')
+        return 'Save OK'
     except Exception as e:
-        wEvent('/newDeviceSub','exeReq','Creation','KO')
-        return 'Creation error'
+        wEvent('/saveDevice','exeReq','Save','KO')
+        return 'Save error'
 
 # View Device ---------------------------------------------------
 @device_api.route('/viewDevice', methods=['POST', 'GET'])
@@ -47,25 +50,10 @@ def viewDevice():
         sql += "WHERE d.uid = u.uid AND d.name = '" + request.args['name'] + "';"
         view = exeReq(sql)
         wEvent('/viewDevice','exeReq','Get','OK')
-        return render_template('viewDevice.html', view = view[0])
+        return render_template('device.html', view = view[0])
     except Exception as e:
         wEvent('/viewDevice ','exeReq','Get','KO')
         return 'View error'
-
-# Update -------------------------------------------------
-@device_api.route('/updateDevice', methods=['POST'])
-def updateDevice():
-    try:
-        sql  = "UPDATE device d, user u SET  d.uid = u.uid, d.lastupdate = '" + request.form['lastupdate'] + "', "
-        sql += "  d.status = '" + request.form['status'] + "', d.description = '" + request.form['description'] + "' "
-        sql += "WHERE d.name = '" + request.form['name'] + "' AND u.login = '" + request.form['login'] + "';"
-        print sql
-        user = exeReq(sql)
-        wEvent('/updateDevice','exeReq','Update','OK')
-        return 'Update OK'
-    except Exception as e:
-        wEvent('/updateDevice','exeReq','Update','KO')
-        return 'Update error'
 
 # List --------------------------------------------------------
 @device_api.route('/listDevice', methods=['POST', 'GET'])
