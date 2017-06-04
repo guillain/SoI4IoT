@@ -4,9 +4,9 @@
           <h2>Tracking</h2>
           <div id="trackingDiv">
             <form action="trackingSub" method="post">
-              <div id="TrackingDiv" class="array">
+              <div id="TrackingDiv">
                 <table class="center">
-                  <tr><td>ID</td><td><input type="number" name="tid" id="tid" placeholder="Tracking ID" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td></tr>
+                  <tr><td>ID</td><td><input type="number" name="tracking" id="tracking" placeholder="Tracking ID" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td></tr>
                   <tr><td>User Login</td><td><input type="text" name="login" id="login" placeholder="User Login" value="{% if view is defined %}{{ view[1] }}{% endif %}" /></td></tr>
                   <tr><td>Device Name</td><td><input type="text" name="name" id="name" placeholder="Device name" value="{% if view is defined %}{{ view[2] }}{% endif %}" /></td></tr>
                   <tr><td>IP</td><td><input type="text" name="ip" id="ip" placeholder="IP add" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td></tr>
@@ -22,5 +22,6 @@
             </form>
           </div>
         </tracking>
+        {% include 'map.html' %}
 {% endblock %}
 
