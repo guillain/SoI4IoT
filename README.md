@@ -17,14 +17,13 @@ Provide web management interface to track and manage IoT activities
 ## Management
 * User
 * * ![List_User](doc/List_User.png)
-* * ![User](doc/User.png =100x)
+* * <img src="doc/User.png" height="200px">
 * Sevice (IoT, web browser...)
 * * ![List_Device](doc/List_Device.png)
-* * ![Device](doc/Device.png =100x)
+* * <img src="doc/Device.png" height="200px">
 * Tracking (linked to user and device)
 * * ![List_Tracking](doc/List_Tracking.png)
-* * <img src="doc/Tracking.png" height="100px">
-* ![Tracking](doc/Tracking.png){: height="36px"}
+* * <img src="doc/Tracking.png" height="200px">
 
 ## Credits
 * Flask
