@@ -19,6 +19,7 @@ add conf/mysql.sql 'MySQL structure'
 add test/test.wsgi 'Test file for Apache WSGI'
 add doc/install.md "Install doc file"
 add doc/todo.md "ToDo doc file"
+add doc/bug.md "Bug file"
 add doc/User.png "Picture: User"
 add doc/List_User.png "Picture: List user"
 add doc/Device.png "Picture: Device"
@@ -55,6 +56,10 @@ add SoI4IoT/templates/welcome.html "Welcome layout"
 add SoI4IoT/templates/index.html "Main layout"
 add SoI4IoT/templates/login.html "Login form"
 add SoI4IoT/templates/map.html "Generic map form"
+add SoI4IoT/templates/field/name.tpl "Template for name field"
+add SoI4IoT/templates/field/group.tpl "Template for group field"
+add SoI4IoT/templates/field/login.tpl "Template for login field"
+add SoI4IoT/templates/field/admin.tpl "Template for admin field"
 add run.dev 'TOOLS: bash script to run web server, for dev only'
 add git.sh 'TOOLS: to comit easily the project to git'
 
