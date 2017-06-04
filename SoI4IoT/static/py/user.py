@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent, getMaps
+from tools import logger, exeReq, wEvent, getMaps,loginList, nameList
 
 import re, os, sys, urllib
 
