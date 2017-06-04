@@ -7,28 +7,11 @@
 ***/
 
 /* USER */
-/* newUserSub click */
+/* saveUser click */
   $(function() {
-    $('a#newUserSub').bind('click', function() {
+    $('a#saveUser').bind('click', function() {
         $.ajax({
-            url: 'newUserSub',
-            data: $('form').serialize(),
-            type: 'POST',
-            success: function(data) {
-                $("#result").text(data);
-            },
-            error: function(error) {
-                $("#result").text(error);
-            }
-        });
-    });
-  });
-
-/* updateUser click */
-  $(function() {
-    $('a#updateUser').bind('click', function() {
-        $.ajax({
-            url: 'updateUser',
+            url: 'saveUser',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
@@ -42,28 +25,11 @@
   });
 
 /* DEVICE */
-/* newDeviceSub click */
+/* saveDevice click */
   $(function() {
-    $('a#newDeviceSub').bind('click', function() {
+    $('a#saveDevice').bind('click', function() {
         $.ajax({
-            url: 'newDeviceSub',
-            data: $('form').serialize(),
-            type: 'POST',
-            success: function(data) {
-                $("#result").text(data);
-            },
-            error: function(error) {
-                $("#result").text(error);
-            }
-        });
-    });
-  });
-
-/* updateDevice click */
-  $(function() {
-    $('a#updateDevice').bind('click', function() {
-        $.ajax({
-            url: 'updateDevice',
+            url: 'saveDevice',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
@@ -77,28 +43,11 @@
   });
 
 /* TRACKING */
-/* newTrackingSub click */
+/* saveTracking click */
   $(function() {
-    $('a#newTrackingSub').bind('click', function() {
+    $('a#saveTracking').bind('click', function() {
         $.ajax({
-            url: 'newTrackingSub',
-            data: $('form').serialize(),
-            type: 'POST',
-            success: function(data) {
-                $("#result").text(data);
-            },
-            error: function(error) {
-                $("#result").text(error);
-            }
-        });
-    });
-  });
-
-/* updateTracking click */
-  $(function() {
-    $('a#updateTracking').bind('click', function() {
-        $.ajax({
-            url: 'updateTracking',
+            url: 'saveTracking',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
