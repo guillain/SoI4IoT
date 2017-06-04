@@ -19,6 +19,7 @@ add conf/mysql.sql 'MySQL structure'
 add test/test.wsgi 'Test file for Apache WSGI'
 add doc/install.md "Install doc file"
 add doc/todo.md "ToDo doc file"
+add doc/List_User.png "Picture: List user"
 add doc/List_Device.png "Picture: List device"
 add doc/List_Tracking.png "Picture: List tracking"
 add doc/Tracker.png "Picture: Tracker"
