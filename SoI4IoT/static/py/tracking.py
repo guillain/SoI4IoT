@@ -7,7 +7,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
-from tools import logger, exeReq, wEvent, getMaps
+from tools import logger, exeReq, wEvent, getMaps, loginList, nameList
 
 import re, os, sys, urllib
 
@@ -23,7 +23,7 @@ api.config.from_envvar('FLASK_SETTING')
 @tracking_api.route('/newTracking', methods=['POST', 'GET'])
 def newTracking():
     wEvent('/newTracking','request','Get new tracking','')
-    return render_template('tracking.html', maps = '')
+    return render_template('tracking.html', maps = '', loginList = loginList(), nameList = nameList())
 
 # Save Tracking ---------------------------------------------------
 @tracking_api.route('/saveTracking', methods=['POST'])
@@ -57,7 +57,7 @@ def viewTracking():
         sql += "WHERE u.uid = t.uid AND t.tid = '" + request.args['tracking'] + "';"
         view = exeReq(sql)
         wEvent('/viewTracking','exeReq','Get','OK')
-        return render_template('tracking.html', view = view[0], maps = getMaps())
+        return render_template('tracking.html', view = view[0], maps = getMaps(), loginList = loginList(), nameList = nameList())
     except Exception as e:
         wEvent('/viewTracking','exeReq','Get','KO')
         return 'View error'
