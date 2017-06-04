@@ -37,7 +37,7 @@ app.register_blueprint(dashboard_api)
 @app.route('/')
 def my_form():
   if 'login' in session:
-    return render_template('newDevice.html')
+    return render_template('welcome.html')
   return render_template("login.html")
 
 # End of App --------------------------------------------------------------------------
