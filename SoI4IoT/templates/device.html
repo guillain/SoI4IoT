@@ -1,5 +1,4 @@
 {% extends "index.html" %}
-
 {% block device %}
         <device>
           <h2>Device</h2>
@@ -7,12 +6,48 @@
             <form action="device Sub" method="post">
               <div id="deviceDiv">
                 <table class="center">
-                  <tr><td>ID</td><td><input type="number" name="did" id="did" placeholder="Device id" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td></tr>
-                  <tr><td>User Login</td><td><input type="text" name="login" id="login" placeholder="User Login" value="{% if view is defined %}{{ view[1] }}{% endif %}" /></td></tr>
-                  <tr><td>Name</td><td><input type="text" name="name" id="name" placeholder="Name" value="{% if view is defined %}{{ view[2] }}{% endif %}" {% if view is defined %} readonly {% endif %} /></td></tr>
-                  <tr><td>Description</td><td><input type="text" name="description" id="description" placeholder="Description" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td></tr>
-                  <tr><td>Status</td><td><input type="text" name="status" id="status" placeholder="Status" value="{% if view is defined %}{{ view[4] }}{% endif %}"/></td></tr>
-                  <tr><td>Last Update</td><td><input type="text" name="lastupdate" id="lastupdate" placeholder="Last Update" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td></tr>
+                  <tr>
+                    <td>ID</td>
+                    <td><input type="number" name="did" id="did" placeholder="Device id" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td>
+                  </tr>
+                  <tr>
+                    <td>User Login</td>
+                    {% if loginList is defined %}
+                    <td>
+                      <select id="login" name="login" placeholder="User Login" >
+                      {% for i in loginList: %}
+                        {% if view is defined %}
+                          {% if i[0] in view[1] %}
+                          <option value="{{ i[0] }}" selected>{{ i[0] }}</option>
+                          {% else %}
+                          <option value="{{ i[0] }}">{{ i[0] }}</option>
+                          {% endif %}
+                        {% else %}
+                          <option value="{{ i[0] }}">{{ i[0] }}</option>
+                        {% endif %}
+                      {% endfor %}
+                      </select>
+                    </td>
+                    {% else %}
+                    <td><input type="text" name="login" id="login" placeholder="User Login" value="{% if view is defined %}{{ view[1] }}{% endif %}" /></td>
+                    {% endif %}
+                  </tr>
+                  <tr>
+                    <td>Device Name</td>
+                    <td><input type="text" name="name" id="name" placeholder="Name" value="{% if view is defined %}{{ view[2] }}{% endif %}" {% if view is defined %} readonly {% endif %} /></td>
+                  </tr>
+                  <tr>
+                    <td>Description</td>
+                    <td><input type="text" name="description" id="description" placeholder="Description" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td><input type="text" name="status" id="status" placeholder="Status" value="{% if view is defined %}{{ view[4] }}{% endif %}"/></td>
+                  </tr>
+                  <tr>
+                    <td>Last Update</td>
+                    <td><input type="text" name="lastupdate" id="lastupdate" placeholder="Last Update" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td>
+                  </tr>
                 </table>
               </div> <!-- Device div -->
               <div id="saveDeviceDiv"><a href="#" id="saveDevice">Save</a></div>
