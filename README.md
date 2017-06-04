@@ -7,7 +7,7 @@ Provide web management interface to track and manage IoT activities
 * Dashboard
 * Push personnal web position by web click as GPS tracker
 * Auto polling of the web position (can be forked for IoT device ;)
-* * [Tracker](doc/Tracker.png)
+* * ![Tracker](doc/Tracker.png)
 * Each user, device and tracking are browsable
 
 ## Management
