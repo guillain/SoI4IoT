@@ -31,16 +31,9 @@ def tracker():
 
 @tracker_api.route('/saveTracker', methods=['POST'])
 def saveTracker():
-    #gps = request.form['latitude'] + ',' + request.form['longitude'];
     try:
-        sql  = "INSERT INTO tracking SET "
-        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
-        sql += "  did = (SELECT did FROM name WHERE name = '" + request.form['name'] + "'); "
-        #sql += "  gps = '" + str(gps) + "';"
-        print sql
-        #exeReq(sql)
         wEvent('/saveTracker','exeReq','Get','OK')
-        return 'Tracking updated'
+        return 'Tracking update ongoing'
     except Exception as e:
         wEvent('/saveTracker','exeReq','Get','KO')
         return 'Tracker error'
@@ -56,11 +49,6 @@ def recGPS():
         sql += "  name = '" + request.user_agent.browser + "', status = 'ok', description = '" + request.user_agent.string + "' "
         sql += "ON DUPLICATE KEY UPDATE status = 'ok';"
         exeReq(sql)
-
-        sql  = "SELECT did FROM device "
-        sql += "WHERE name = '" + request.user_agent.browser + "' AND status = 'ok' AND description = '" + request.user_agent.string + "' "
-        sql += "ORDER BY did DESC LIMIT 1;"
-        did = exeReq(sql)
         wEvent('/recGPS','exeReq','Add or update web device','OK')
     except Exception as e:
         wEvent('/recGPS','exeReq','Add or update web device','KO')
@@ -70,7 +58,8 @@ def recGPS():
     try:
         sql  = "INSERT INTO tracking SET "
         sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
-        sql += "  did = '" + str(did[0][0]) + "', gps = '" + str(gps) + "';"
+        sql += "  did = (SELECT did FROM device WHERE name = '" + request.user_agent.browser + "'), "
+        sql += "  gps = '" + str(gps) + "';"
         exeReq(sql)
         wEvent('/recGPS','exeReq','GPS record','OK')
         return 'GPS record OK'
