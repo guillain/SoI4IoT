@@ -76,9 +76,9 @@ def listUser():
 @user_api.route('/deleteUser', methods=['POST', 'GET'])
 def deleteUser():
     try:
-        sql  = "UPDATE user SET grp = 'deleted' WHERE uid = '" + request.args['login'] + "';"
+        sql  = "UPDATE user SET grp = 'deleted' WHERE login = '" + request.args['login'] + "';"
         print sql
-        view = exeReq(sql)
+        exeReq(sql)
         wEvent('/deleteUser','exeReq','Get','OK')
         return listUser()
     except Exception as e:
