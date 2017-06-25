@@ -68,7 +68,7 @@ def listTracking():
     try:
         sql  = "SELECT t.tid, u.login, d.name, t.timestamp, CONCAT_WS(t.ip, t.gps, t.url, t.website, t.webhook, t.address) "
         sql += "FROM tracking t, user u, device d "
-        sql += "WHERE t.uid = u.uid AND t.did = d.did;"
+        sql += "WHERE t.uid = u.uid AND t.did = d.did AND u.grp != 'deleted' AND d.status != 'deleted';"
         list = exeReq(sql)
         wEvent('/listTracking','exeReq','Get list','OK')
         return render_template('listTracking.html', list = list, maps = getMaps())
