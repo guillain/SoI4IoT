@@ -11,7 +11,7 @@
                 <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
                 <td>{{ view[1] }}</td>
                 <td>{{ view[2] }}</td>
-                <td><a href="{{ url_for('user_api.deleteUser') }}?login={{ view[0] }}" style="text-align:left;">Delete</a></td>
+                <td><a href="{{ url_for('user_api.deleteUser') }}?login={{ view[0] }}" style="text-align:left;">X</a></td>
               </tr>
               {% endfor %}
             </table>
