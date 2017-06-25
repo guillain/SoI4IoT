@@ -41,7 +41,7 @@
       <table class="tblCenter">
         <tr>
           <td class="tblLeft"><span>SoI4IoT</span></td>
-          <td class="tblCenter">
+          <td class="tblCenter" colspan="2">
             {% block logger %}{% endblock %} 
           </td>
           <td class="tblRight">
@@ -53,6 +53,7 @@
         {% if session.login %}
         <tr>
           <td class="tblLeft"><div><b>User</b> <a href="{{ url_for('user_api.listUser') }}">List</a> <a href="{{ url_for('user_api.newUser') }}">New</a></div></td>
+          <td class="tblLeft"><div><b>Customer</b> <a href="{{ url_for('customer_api.listCustomer') }}">List</a> <a href="{{ url_for('customer_api.newCustomer') }}">New</a></div></td>
           <td class="tblCenter"><div><b>Device</b> <a href="{{ url_for('device_api.listDevice') }}">List</a> <a href="{{ url_for('device_api.newDevice') }}">New</a></div></td>
           <td class="tblRight"><div><b>Tracking</b> <a href="{{ url_for('tracking_api.listTracking') }}">List</a> <a href="{{ url_for('tracking_api.newTracking') }}">New</a></div></td>
         </tr>
@@ -75,6 +76,9 @@
 
       {% block user %}{% endblock %}
       {% block listUser %}{% endblock %}
+
+      {% block customer %}{% endblock %}
+      {% block listCustomer %}{% endblock %}
 
       {% block device %}{% endblock %}
       {% block listDevice %}{% endblock %}
