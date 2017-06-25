@@ -27,6 +27,9 @@ app.register_blueprint(device_api)
 from static.py.user import user_api
 app.register_blueprint(user_api)
 
+from static.py.customer import customer_api
+app.register_blueprint(customer_api)
+
 from static.py.tracking import tracking_api
 app.register_blueprint(tracking_api)
 
