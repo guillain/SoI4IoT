@@ -5,12 +5,13 @@
           <div id="listUserDiv">
             <h2>List User</h2>
             <table class="center">
-              <tr><th>Login</th><th>Email</th><th>Group</th></tr>
+              <tr><th>Login</th><th>Email</th><th>Group</th><th>Delete</th></tr>
               {% for view in list %}
               <tr>
                 <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
                 <td>{{ view[1] }}</td>
                 <td>{{ view[2] }}</td>
+                <td><a href="{{ url_for('user_api.deleteUser') }}?login={{ view[0] }}" style="text-align:left;">Delete</a></td>
               </tr>
               {% endfor %}
             </table>
