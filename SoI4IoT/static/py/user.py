@@ -65,9 +65,23 @@ def viewUser():
 @user_api.route('/listUser', methods=['POST', 'GET'])
 def listUser():
     try:
-        list = exeReq("SELECT login, email, grp FROM user;")
+        list = exeReq("SELECT login, email, grp FROM user WHERE grp != 'deleted';")
         wEvent('/listUser','exeReq','Get','OK')
         return render_template('listUser.html', list = list, maps = getMaps())
     except Exception as e:
         wEvent('/listUser','exeReq','Get','KO')
         return 'List error'
+
+# Delete User ---------------------------------------------------
+@user_api.route('/deleteUser', methods=['POST', 'GET'])
+def deleteUser():
+    try:
+        sql  = "UPDATE user SET grp = 'deleted' WHERE uid = '" + request.args['login'] + "';"
+        print sql
+        view = exeReq(sql)
+        wEvent('/deleteUser','exeReq','Get','OK')
+        return listUser()
+    except Exception as e:
+        wEvent('/deleteUser ','exeReq','Get','KO')
+        return 'Delete error'
+
