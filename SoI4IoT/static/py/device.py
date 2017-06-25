@@ -62,7 +62,7 @@ def listDevice():
     try:
         sql  = "SELECT d.name, u.login, d.status, d.lastupdate "
         sql += "FROM device d, user u "
-        sql += "WHERE d.uid = u.uid AND d.status NOT LIKE '%del%';"
+        sql += "WHERE d.uid = u.uid AND d.status != 'deleted' AND u.grp != 'deleted';"
         list = exeReq(sql)
         wEvent('/listDevice','exeReq','Get list','OK')
         return render_template('listDevice.html', list = list, maps = getMaps())
@@ -74,7 +74,7 @@ def listDevice():
 @device_api.route('/deleteDevice', methods=['POST', 'GET'])
 def deleteDevice():
     try:
-        sql  = "UPDATE device d, user u SET d.status = 'delete' "
+        sql  = "UPDATE device d, user u SET d.status = 'deleted' "
         sql += "WHERE d.uid = u.uid AND d.name = '" + request.args['name'] + "';"
         print sql
         view = exeReq(sql)
