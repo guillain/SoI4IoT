@@ -1,4 +1,4 @@
-VERSION="1.2.1"
+VERSION="1.3.0"
 USER='guillain'
 
 add(){
@@ -38,6 +38,7 @@ add SoI4IoT/static/__init__.py 'App Init file that contain web login mgt'
 add SoI4IoT/static/py/__init__.py 'App init'
 add SoI4IoT/static/py/device.py 'Device script'
 add SoI4IoT/static/py/user.py 'User script'
+add SoI4IoT/static/py/customer.py 'Customer script'
 add SoI4IoT/static/py/tracking.py 'Tracking script'
 add SoI4IoT/static/py/tracker.py 'Tracker script'
 add SoI4IoT/static/py/login.py 'Login script'
@@ -47,7 +48,9 @@ add SoI4IoT/templates/dashboard.html "Dashboard for global map overview"
 add SoI4IoT/templates/listDevice.html "List elements of the device DB"
 add SoI4IoT/templates/device.html "Device form"
 add SoI4IoT/templates/listUser.html "List elements of the user DB"
+add SoI4IoT/templates/listCustomer.html "List elements of the user DB specically for customer approch"
 add SoI4IoT/templates/user.html "User form"
+add SoI4IoT/templates/customer.html "customer form"
 add SoI4IoT/templates/listTracking.html "List elements of the tracking DB"
 add SoI4IoT/templates/tracking.html "Tracking form"
 add SoI4IoT/templates/tracker.html "Tracker form"
