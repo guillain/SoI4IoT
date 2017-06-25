@@ -24,6 +24,24 @@
     });
   });
 
+/* CUSTOMER */
+/* saveCustomer click */
+  $(function() {
+    $('a#saveCustomer').bind('click', function() {
+        $.ajax({
+            url: 'saveCustomer',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(data) {
+                $("#result").text(data);
+            },
+            error: function(error) {
+                $("#result").text(error);
+            }
+        });
+    });
+  });
+
 /* DEVICE */
 /* saveDevice click */
   $(function() {
