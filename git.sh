@@ -7,6 +7,7 @@ fi
 
 VERSION="1.3.0"
 USER='guillain'
+COMMENT="${VERSION}, ${1}"
 
 add(){
   echo "add: ${1}, comment: ${2}, ${COMMENT}"
@@ -20,8 +21,8 @@ add LICENSE 'LICENSE file'
 add requirements.txt 'Software requirement'
 add SoI4IoT.wsgi 'Apache WSGI configuration file'
 add conf/settings.cfg.default 'Default config file to use as template'
-add conf/apache.conf.default 'Default apache web server config file to use as template'
-add conf/apache-secure.conf.default 'Default secure apache web server config file to use as template'
+add conf/apache.conf.default 'Default apache web server to use as template'
+add conf/apache-secure.conf.default 'Default secure apache config file to use as template'
 add conf/mysql.sql 'MySQL structure'
 add test/test.wsgi 'Test file for Apache WSGI'
 add doc/install.md "Install doc file"
@@ -56,7 +57,7 @@ add SoI4IoT/templates/dashboard.html "Dashboard for global map overview"
 add SoI4IoT/templates/listDevice.html "List elements of the device DB"
 add SoI4IoT/templates/device.html "Device form"
 add SoI4IoT/templates/listUser.html "List elements of the user DB"
-add SoI4IoT/templates/listCustomer.html "List elements of the user DB specically for customer approch"
+add SoI4IoT/templates/listCustomer.html "List elements of the user DB spe. for customer approch"
 add SoI4IoT/templates/user.html "User form"
 add SoI4IoT/templates/customer.html "customer form"
 add SoI4IoT/templates/listTracking.html "List elements of the tracking DB"
@@ -74,7 +75,6 @@ add SoI4IoT/templates/field/admin.tpl "Template for admin field"
 add run.dev 'TOOLS: bash script to run web server, for dev only'
 add git.sh 'TOOLS: to comit easily the project to git'
 
-COMMENT="${VERSION}, ${1}"
 git commit -m "${COMMENT}"
 git push
 
