@@ -9,11 +9,11 @@
               <tr><th>Name</th><th>User Login</th><th>Status</th><th>Last Update</th><th>Delete</th></tr>
               {% for view in list %}
               <tr>
-                <td><a href="{{ url_for('device_api.viewDevice') }}?name={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
-                <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[1] }}" style="text-align:left;">{{ view[1] }}</a></td>
+                <td><a href="{{ url_for('device_app.viewDevice') }}?name={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td><a href="{{ url_for('user_app.viewUser') }}?login={{ view[1] }}" style="text-align:left;">{{ view[1] }}</a></td>
                 <td>{{ view[2] }}</td>
                 <td>{{ view[3] }}</td>
-                <td><a href="{{ url_for('device_api.deleteDevice') }}?name={{ view[0] }}" style="text-align:left;">X</a></td>
+                <td><a href="{{ url_for('device_app.deleteDevice') }}?name={{ view[0] }}" style="text-align:left;">X</a></td>
               </tr>
               {% endfor %}
             </table>

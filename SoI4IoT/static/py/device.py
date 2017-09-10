@@ -12,7 +12,7 @@ from tools import logger, exeReq, wEvent, getMaps, loginList
 import re, os, sys, urllib
 
 from flask import Blueprint
-device_api = Blueprint('device_api', __name__)
+device_app = Blueprint('device_app', __name__)
 
 # Conf app
 api = Flask(__name__)
@@ -20,13 +20,13 @@ api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
 # Device creation form -------------------------------------------
-@device_api.route('/newDevice', methods=['POST', 'GET'])
+@device_app.route('/newDevice', methods=['POST', 'GET'])
 def newDevice():
     wEvent('/newDevice', 'request','Get new device','')
     return render_template('device.html', maps = '', loginList = loginList())
 
 # Save device ------------------------------------------------
-@device_api.route('/saveDevice', methods=['POST'])
+@device_app.route('/saveDevice', methods=['POST'])
 def newDeviceSub():
     try:
         sql  = "INSERT INTO device SET name = '" + request.form['name'] + "', "
@@ -43,7 +43,7 @@ def newDeviceSub():
         return 'Save error'
 
 # View Device ---------------------------------------------------
-@device_api.route('/viewDevice', methods=['POST', 'GET'])
+@device_app.route('/viewDevice', methods=['POST', 'GET'])
 def viewDevice():
     try:
         sql  = "SELECT d.did, u.login, d.name, d.description, d.status, d.lastupdate "
@@ -57,7 +57,7 @@ def viewDevice():
         return 'View error'
 
 # List --------------------------------------------------------
-@device_api.route('/listDevice', methods=['POST', 'GET'])
+@device_app.route('/listDevice', methods=['POST', 'GET'])
 def listDevice():
     try:
         sql  = "SELECT d.name, u.login, d.status, d.lastupdate "
@@ -71,7 +71,7 @@ def listDevice():
         return 'List error'
 
 # Delete Device ---------------------------------------------------
-@device_api.route('/deleteDevice', methods=['POST', 'GET'])
+@device_app.route('/deleteDevice', methods=['POST', 'GET'])
 def deleteDevice():
     try:
         sql  = "UPDATE device d, user u SET d.status = 'deleted' "

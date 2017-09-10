@@ -107,6 +107,8 @@ ul {
 .center {
   width:100%;
   text-align: center;
+  border-collapse:separate; 
+  border-spacing:1em;
 }
 table.tblCenter {
   width:100%;

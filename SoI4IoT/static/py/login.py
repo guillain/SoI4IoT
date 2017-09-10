@@ -12,7 +12,7 @@ from tools import logger, exeReq, wEvent
 import re, os, sys, urllib
 
 from flask import Blueprint
-login_api = Blueprint('login_api', __name__)
+login_app = Blueprint('login_app', __name__)
 
 # Conf app
 api = Flask(__name__)
@@ -21,7 +21,7 @@ api.config.from_envvar('FLASK_SETTING')
 
 
 # Record ------------------------------------------------------
-@login_api.route('/login', methods=['POST', 'GET'])
+@login_app.route('/login', methods=['POST', 'GET'])
 def login():
     error = None
     if 'login' in session:
@@ -62,7 +62,7 @@ def login():
         return render_template('login.html')
 
 # Logout --------------------------------------------------
-@login_api.route('/logout')
+@login_app.route('/logout')
 def logout():
   wEvent('/logout',session['login'],'You were logged out','OK')
   session.clear()

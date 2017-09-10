@@ -8,9 +8,9 @@
               <tr><th>Login</th><th>Email</th><th>Delete</th></tr>
               {% for view in list %}
               <tr>
-                <td><a href="{{ url_for('customer_api.viewCustomer') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td><a href="{{ url_for('customer_app.viewCustomer') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
                 <td>{{ view[1] }}</td>
-                <td><a href="{{ url_for('customer_api.deleteCustomer') }}?login={{ view[0] }}" style="text-align:left;">X</a></td>
+                <td><a href="{{ url_for('customer_app.deleteCustomer') }}?login={{ view[0] }}" style="text-align:left;">X</a></td>
               </tr>
               {% endfor %}
             </table>

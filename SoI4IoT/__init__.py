@@ -18,26 +18,26 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
 # Import SoI4IoT features
-from static.py.login import login_api
-app.register_blueprint(login_api)
+from static.py.login import login_app
+app.register_blueprint(login_app)
 
-from static.py.device import device_api
-app.register_blueprint(device_api)
+from static.py.device import device_app
+app.register_blueprint(device_app)
 
-from static.py.user import user_api
-app.register_blueprint(user_api)
+from static.py.user import user_app
+app.register_blueprint(user_app)
 
-from static.py.customer import customer_api
-app.register_blueprint(customer_api)
+from static.py.customer import customer_app
+app.register_blueprint(customer_app)
 
-from static.py.tracking import tracking_api
-app.register_blueprint(tracking_api)
+from static.py.tracking import tracking_app
+app.register_blueprint(tracking_app)
 
-from static.py.dashboard import dashboard_api
-app.register_blueprint(dashboard_api)
+from static.py.dashboard import dashboard_app
+app.register_blueprint(dashboard_app)
 
-from static.py.tracker import tracker_api
-app.register_blueprint(tracker_api)
+from static.py.tracker import tracker_app
+app.register_blueprint(tracker_app)
 
 # WEB mgt ----------------------------------------
 @app.route('/')

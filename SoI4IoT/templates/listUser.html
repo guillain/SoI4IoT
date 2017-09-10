@@ -8,10 +8,10 @@
               <tr><th>Login</th><th>Email</th><th>Group</th><th>Delete</th></tr>
               {% for view in list %}
               <tr>
-                <td><a href="{{ url_for('user_api.viewUser') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
+                <td><a href="{{ url_for('user_app.viewUser') }}?login={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
                 <td>{{ view[1] }}</td>
                 <td>{{ view[2] }}</td>
-                <td><a href="{{ url_for('user_api.deleteUser') }}?login={{ view[0] }}" style="text-align:left;">X</a></td>
+                <td><a href="{{ url_for('user_app.deleteUser') }}?login={{ view[0] }}" style="text-align:left;">X</a></td>
               </tr>
               {% endfor %}
             </table>

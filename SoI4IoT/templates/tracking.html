@@ -9,39 +9,48 @@
                   <tr>
                     <td>ID</td>
                     <td><input type="number" name="tracking" id="tracking" placeholder="Tracking ID" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td>
+                    <td>Device Name</td>
+                    <td>{% with index=2 %}{% include 'field/name.tpl' %}{% endwith %}</td>
                   </tr>
                   <tr>
                     <td>User Login</td>
-                    <td>{% with index=1 %}{% include 'field/login.tpl' %}{% endwith %}
-                  <tr>
-                    <td>Device Name</td>
-                    <td>{% with index=2 %}{% include 'field/name.tpl' %}{% endwith %}
-                  </tr>
-                  <tr>
-                    <td>IP</td>
-                    <td><input type="text" name="ip" id="ip" placeholder="IP add" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td>
-                  </tr>
-                  <tr>
-                    <td>GPS</td>
-                    <td><input type="text" name="gps" id="gps" placeholder="GPS" value="{% if view is defined %}{{ view[4] }}{% endif %}" /></td>
-                  </tr>
-                  <tr>
-                    <td>URL</td>
-                    <td><input type="text" name="url" id="url" placeholder="URL" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td>
-                  </tr>
-                  <tr>
-                    <td>WebSite</td>
-                    <td><input type="text" name="website" id="website" placeholder="WebSite" value="{% if view is defined %}{{ view[6] }}{% endif %}" /></td>
-                  </tr>
-                  <tr>
-                    <td>WebHook</td>
-                    <td><input type="text" name="webhook" id="webhook" placeholder="WebHook" value="{% if view is defined %}{{ view[7] }}{% endif %}" /></td>
-                  </tr>
-                  <tr>
+                    <td>{% with index=1 %}{% include 'field/login.tpl' %}{% endwith %}</td>
                     <td>Address</td>
                     <td><input type="text" name="address" id="address" placeholder="Address" value="{% if view is defined %}{{ view[8] }}{% endif %}" /></td>
                   </tr>
                   <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Humidity</td>
+                    <td><input type="text" name="humidity" id="humidity" placeholder="Humidity" value="{% if view is defined %}{{ view[10] }}{% endif %}" /></td>
+                    <td>Luminosity</td>
+                    <td><input type="text" name="luminosity" id="luminosity" placeholder="Luminosity" value="{% if view is defined %}{{ view[11] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>Ambient temperature</td>
+                    <td><input type="text" name="temp_amb" id="temp_amb" placeholder="Amb. temp." value="{% if view is defined %}{{ view[12] }}{% endif %}" /></td>
+                    <td>Sensor temperature</td>
+                    <td><input type="text" name="temp_sensor" id="temp_sensor" placeholder="Sensor temp." value="{% if view is defined %}{{ view[13] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>IP</td>
+                    <td><input type="text" name="ip" id="ip" placeholder="IP add" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td>
+                    <td>GPS</td>
+                    <td><input type="text" name="gps" id="gps" placeholder="GPS" value="{% if view is defined %}{{ view[4] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>WebSite</td>
+                    <td><input type="text" name="website" id="website" placeholder="WebSite" value="{% if view is defined %}{{ view[6] }}{% endif %}" /></td>
+                    <td>WebHook</td>
+                    <td><input type="text" name="webhook" id="webhook" placeholder="WebHook" value="{% if view is defined %}{{ view[7] }}{% endif %}" /></td>
+                  </tr>
+                  <tr>
+                    <td>URL</td>
+                    <td><input type="text" name="url" id="url" placeholder="URL" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td>
                     <td>Timestamp</td>
                     <td><input type="text" name="timestamp" id="timestamp" placeholder="Timestamp" value="{% if view is defined %}{{ view[9] }}{% endif %}" /></td>
                   </tr>

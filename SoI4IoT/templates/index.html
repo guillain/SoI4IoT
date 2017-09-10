@@ -46,16 +46,16 @@
           </td>
           <td class="tblRight">
             {% if session.login %}
-            <a href="{{ url_for('user_api.viewUser') }}?login={{ session['login'] }}" style="text-align:left;" id="login">{{ session['login'] }}</a> / <a href="{{ url_for('login_api.logout') }}">log out</a>
+            <a href="{{ url_for('user_app.viewUser') }}?login={{ session['login'] }}" style="text-align:left;" id="login">{{ session['login'] }}</a> / <a href="{{ url_for('login_app.logout') }}">log out</a>
             {% endif %}
           </td>
         </tr>
         {% if session.login %}
         <tr>
-          <td class="tblLeft"><div><b>User</b> <a href="{{ url_for('user_api.listUser') }}">List</a> <a href="{{ url_for('user_api.newUser') }}">New</a></div></td>
-          <td class="tblLeft"><div><b>Customer</b> <a href="{{ url_for('customer_api.listCustomer') }}">List</a> <a href="{{ url_for('customer_api.newCustomer') }}">New</a></div></td>
-          <td class="tblCenter"><div><b>Device</b> <a href="{{ url_for('device_api.listDevice') }}">List</a> <a href="{{ url_for('device_api.newDevice') }}">New</a></div></td>
-          <td class="tblRight"><div><b>Tracking</b> <a href="{{ url_for('tracking_api.listTracking') }}">List</a> <a href="{{ url_for('tracking_api.newTracking') }}">New</a></div></td>
+          <td class="tblLeft"><div><b>User</b> <a href="{{ url_for('user_app.listUser') }}">List</a> <a href="{{ url_for('user_app.newUser') }}">New</a></div></td>
+          <td class="tblLeft"><div><b>Customer</b> <a href="{{ url_for('customer_app.listCustomer') }}">List</a> <a href="{{ url_for('customer_app.newCustomer') }}">New</a></div></td>
+          <td class="tblCenter"><div><b>Device</b> <a href="{{ url_for('device_app.listDevice') }}">List</a> <a href="{{ url_for('device_app.newDevice') }}">New</a></div></td>
+          <td class="tblRight"><div><b>Tracking</b> <a href="{{ url_for('tracking_app.listTracking') }}">List</a> <a href="{{ url_for('tracking_app.newTracking') }}">New</a></div></td>
         </tr>
         {% endif %}
       </table>
@@ -67,9 +67,9 @@
         <h2>Nav</h2>
         <div>
           <ul>
-            <li><a href="{{ url_for('dashboard_api.dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('dashboard_app.dashboard') }}">Dashboard</a></li>
             <li id="gps" onClick="sendHTMLgps()"><a href="#">Push Position</a></li>
-            <li><a href="{{ url_for('tracker_api.tracker') }}">HTML Tracker</a></li>
+            <li><a href="{{ url_for('tracker_app.tracker') }}">HTML Tracker</a></li>
           </ul>
         </div>
       </nav>

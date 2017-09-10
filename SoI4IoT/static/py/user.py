@@ -12,7 +12,7 @@ from tools import logger, exeReq, wEvent, getMaps,loginList, nameList
 import re, os, sys, urllib
 
 from flask import Blueprint
-user_api = Blueprint('user_api', __name__)
+user_app = Blueprint('user_app', __name__)
 
 # Conf app
 api = Flask(__name__)
@@ -20,13 +20,13 @@ api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
 # User creation form -------------------------------------------
-@user_api.route('/newUser', methods=['POST', 'GET'])
+@user_app.route('/newUser', methods=['POST', 'GET'])
 def newUser():
     wEvent('/newUser','request','Get new user','')
     return render_template('user.html', maps = '')
 
 # Save User ---------------------------------------------------
-@user_api.route('/saveUser', methods=['POST'])
+@user_app.route('/saveUser', methods=['POST'])
 def newUserSub():
     try:
         sql  = "INSERT INTO user SET login = '" + request.form['login'] + "', "
@@ -49,7 +49,7 @@ def newUserSub():
         return 'Save error'
 
 # View User ---------------------------------------------------
-@user_api.route('/viewUser', methods=['POST', 'GET'])
+@user_app.route('/viewUser', methods=['POST', 'GET'])
 def viewUser():
     try:
         sql  = "SELECT uid, login, firstname, lastname, email, address, enterprise, grp, mobile, password, admin "
@@ -62,7 +62,7 @@ def viewUser():
         return 'View error'
 
 # List User --------------------------------------------------------
-@user_api.route('/listUser', methods=['POST', 'GET'])
+@user_app.route('/listUser', methods=['POST', 'GET'])
 def listUser():
     try:
         list = exeReq("SELECT login, email, grp FROM user WHERE grp != 'deleted';")
@@ -73,7 +73,7 @@ def listUser():
         return 'List error'
 
 # Delete User ---------------------------------------------------
-@user_api.route('/deleteUser', methods=['POST', 'GET'])
+@user_app.route('/deleteUser', methods=['POST', 'GET'])
 def deleteUser():
     try:
         sql  = "UPDATE user SET grp = 'deleted' WHERE login = '" + request.args['login'] + "';"

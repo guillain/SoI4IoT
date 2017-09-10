@@ -9,26 +9,20 @@
                   <tr>
                     <td>ID</td>
                     <td><input type="number" name="did" id="did" placeholder="Device id" value="{% if view is defined %}{{ view[0] }}{% endif %}" readonly /></td>
-                  </tr>
-                  <tr>
                     <td>User Login</td>
-                    <td>{% with index=1 %}{% include 'field/login.tpl' %}{% endwith %}
+                    <td>{% with index=1 %}{% include 'field/login.tpl' %}{% endwith %}</td>
                   </tr>
                   <tr>
                     <td>Device Name</td>
                     <td><input type="text" name="name" id="name" placeholder="Name" value="{% if view is defined %}{{ view[2] }}{% endif %}" {% if view is defined %} readonly {% endif %} /></td>
-                  </tr>
-                  <tr>
                     <td>Description</td>
                     <td><input type="text" name="description" id="description" placeholder="Description" value="{% if view is defined %}{{ view[3] }}{% endif %}" /></td>
                   </tr>
                   <tr>
-                    <td>Status</td>
-                    <td><input type="text" name="status" id="status" placeholder="Status" value="{% if view is defined %}{{ view[4] }}{% endif %}"/></td>
-                  </tr>
-                  <tr>
                     <td>Last Update</td>
                     <td><input type="text" name="lastupdate" id="lastupdate" placeholder="Last Update" value="{% if view is defined %}{{ view[5] }}{% endif %}" /></td>
+                    <td>Status</td>
+                    <td><input type="text" name="status" id="status" placeholder="Status" value="{% if view is defined %}{{ view[4] }}{% endif %}"/></td>
                   </tr>
                 </table>
               </div> <!-- Device div -->

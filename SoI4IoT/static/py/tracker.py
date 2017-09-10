@@ -12,7 +12,7 @@ from tools import logger, exeReq, wEvent, getMaps, loginList, nameList
 import re, os, sys, urllib
 
 from flask import Blueprint
-tracker_api = Blueprint('tracker_api', __name__)
+tracker_app = Blueprint('tracker_app', __name__)
 
 # Conf app
 api = Flask(__name__)
@@ -20,7 +20,7 @@ api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
 # Tracker ---------------------------------------
-@tracker_api.route('/tracker', methods=['GET', 'POST'])
+@tracker_app.route('/tracker', methods=['GET', 'POST'])
 def tracker():
     try:
         wEvent('/tracker','exeReq','Get','OK')
@@ -29,7 +29,7 @@ def tracker():
         wEvent('/tracker','exeReq','Get','KO')
         return 'Tracker error'
 
-@tracker_api.route('/saveTracker', methods=['POST'])
+@tracker_app.route('/saveTracker', methods=['POST'])
 def saveTracker():
     try:
         wEvent('/saveTracker','exeReq','Get','OK')
@@ -39,7 +39,7 @@ def saveTracker():
         return 'Tracker error'
 
 # Rec GPS
-@tracker_api.route('/recGPS', methods=['POST'])
+@tracker_app.route('/recGPS', methods=['POST'])
 def recGPS():
     gps = request.form['latitude'] + ',' + request.form['longitude'];
 

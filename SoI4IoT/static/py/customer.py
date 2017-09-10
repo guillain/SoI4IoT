@@ -12,7 +12,7 @@ from tools import logger, exeReq, wEvent, getMaps,loginList, nameList
 import re, os, sys, urllib
 
 from flask import Blueprint
-customer_api = Blueprint('customer_api', __name__)
+customer_app = Blueprint('customer_app', __name__)
 
 # Conf app
 api = Flask(__name__)
@@ -20,13 +20,13 @@ api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
 # Customer creation form -------------------------------------------
-@customer_api.route('/newCustomer', methods=['POST', 'GET'])
+@customer_app.route('/newCustomer', methods=['POST', 'GET'])
 def newCustomer():
     wEvent('/newCustomer','request','Get new user','')
     return render_template('customer.html', maps = '')
 
 # Save Customer ---------------------------------------------------
-@customer_api.route('/saveCustomer', methods=['POST'])
+@customer_app.route('/saveCustomer', methods=['POST'])
 def newCustomerSub():
     try:
         sql  = "INSERT INTO user SET login = '" + request.form['login'] + "', "
@@ -49,7 +49,7 @@ def newCustomerSub():
         return 'Save error'
 
 # View Customer ---------------------------------------------------
-@customer_api.route('/viewCustomer', methods=['POST', 'GET'])
+@customer_app.route('/viewCustomer', methods=['POST', 'GET'])
 def viewCustomer():
     try:
         sql  = "SELECT login, firstname, lastname, email, address, enterprise, mobile, password "
@@ -62,7 +62,7 @@ def viewCustomer():
         return 'View error'
 
 # List Customer --------------------------------------------------------
-@customer_api.route('/listCustomer', methods=['POST', 'GET'])
+@customer_app.route('/listCustomer', methods=['POST', 'GET'])
 def listCustomer():
     try:
         list = exeReq("SELECT login, email, grp FROM user WHERE grp = 'customer';")
@@ -73,7 +73,7 @@ def listCustomer():
         return 'List error'
 
 # Delete Customer ---------------------------------------------------
-@customer_api.route('/deleteCustomer', methods=['POST', 'GET'])
+@customer_app.route('/deleteCustomer', methods=['POST', 'GET'])
 def deleteCustomer():
     try:
         sql  = "UPDATE user SET grp = 'deleted' WHERE login = '" + request.args['login'] + "';"

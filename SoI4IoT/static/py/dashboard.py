@@ -12,7 +12,7 @@ from tools import logger, exeReq, wEvent, getMaps
 import re, os, sys, urllib
 
 from flask import Blueprint
-dashboard_api = Blueprint('dashboard_api', __name__)
+dashboard_app = Blueprint('dashboard_app', __name__)
 
 # Conf app
 api = Flask(__name__)
@@ -20,7 +20,7 @@ api.config.from_object(__name__)
 api.config.from_envvar('FLASK_SETTING')
 
 # Dashboard ---------------------------------------
-@dashboard_api.route('/dashboard', methods=['GET', 'POST'])
+@dashboard_app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     try:
         wEvent('/dashboard','exeReq','Get','OK')
