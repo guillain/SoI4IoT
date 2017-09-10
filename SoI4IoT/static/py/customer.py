@@ -15,9 +15,9 @@ from flask import Blueprint
 customer_app = Blueprint('customer_app', __name__)
 
 # Conf app
-api = Flask(__name__)
-api.config.from_object(__name__)
-api.config.from_envvar('FLASK_SETTING')
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config.from_envvar('FLASK_SETTING')
 
 # Customer creation form -------------------------------------------
 @customer_app.route('/newCustomer', methods=['POST', 'GET'])
