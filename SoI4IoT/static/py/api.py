@@ -20,16 +20,16 @@ sensor = [
     }
 ]
 
-# curl -i http://localhost:5000/todo/api/v1.0/tasks/2
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
+# curl -i http://localhost:5000/api/v1.0/tasks/2
+@app.route('/api/v1.0/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
     task = [task for task in tasks if task['id'] == task_id]
     if len(task) == 0:
         abort(404)
     return jsonify({'task': task[0]})
 	
-# curl -i -H "Content-Type: application/json" -X POST -d "{"""title""":"""Read a book"""}" http://localhost:5000/todo/api/v1.0/tasks
-@app.route('/todo/api/v1.0/tasks', methods=['POST'])
+# curl -i -H "Content-Type: application/json" -X POST -d "{"""title""":"""Read a book"""}" http://localhost:5000/api/v1.0/tasks
+@app.route('/api/v1.0/tasks', methods=['POST'])
 def create_task():
     if not request.json or not 'title' in request.json:
         abort(400)
@@ -42,8 +42,8 @@ def create_task():
     tasks.append(task)
     return jsonify({'task': task}), 201
 
-# curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/todo/api/v1.0/tasks/2
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
+# curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/api/v1.0/tasks/2
+@app.route('/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     task = [task for task in tasks if task['id'] == task_id]
     if len(task) == 0:
@@ -61,8 +61,8 @@ def update_task(task_id):
     task[0]['done'] = request.json.get('done', task[0]['done'])
     return jsonify({'task': task[0]})
 
-# curl -i -H "Content-Type: application/json" -X DELETE http://localhost:5000/todo/api/v1.0/tasks/2
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
+# curl -i -H "Content-Type: application/json" -X DELETE http://localhost:5000/api/v1.0/tasks/2
+@app.route('/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     task = [task for task in tasks if task['id'] == task_id]
     if len(task) == 0:
@@ -70,7 +70,7 @@ def delete_task(task_id):
     tasks.remove(task[0])
     return jsonify({'result': True})
 	
-# curl -i http://localhost:5000/todo/api/v1.0/tasks/3
+# curl -i http://localhost:5000/api/v1.0/tasks/3
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
