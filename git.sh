@@ -1,3 +1,10 @@
+#!/bin/bash
+
+if [ "${1}" == "" ]; then
+  echo "Thanks to add the comment"
+  exit
+fi
+
 VERSION="1.3.0"
 USER='guillain'
 
@@ -36,6 +43,7 @@ add SoI4IoT/static/js/SoI4IoT.js 'jQuery of SoI4IoT'
 add SoI4IoT/static/js/jquery.popupoverlay.js 'Popup mgt'
 add SoI4IoT/static/__init__.py 'App Init file that contain web login mgt'
 add SoI4IoT/static/py/__init__.py 'App init'
+add SoI4IoT/static/py/api.py 'Full REST API script'
 add SoI4IoT/static/py/device.py 'Device script'
 add SoI4IoT/static/py/user.py 'User script'
 add SoI4IoT/static/py/customer.py 'Customer script'
@@ -66,6 +74,7 @@ add SoI4IoT/templates/field/admin.tpl "Template for admin field"
 add run.dev 'TOOLS: bash script to run web server, for dev only'
 add git.sh 'TOOLS: to comit easily the project to git'
 
-git commit -m "prepare for ${VERSION}"
+git commit -m "${VERSION}, ${1}"
 git push
 
+exit 0
