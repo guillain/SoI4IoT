@@ -9,9 +9,9 @@ VERSION="1.3.0"
 USER='guillain'
 
 add(){
-  echo "add: ${1}, comment: ${2}"
-  git add -f "${1}"
-  git commit -m "${2}" "${1}"
+  echo "add: ${1}, comment: ${2}, ${COMMENT}"
+  git add "${1}"
+  git commit -m "${2}, ${COMMENT}" "${1}"
 }
 
 git pull
@@ -74,7 +74,8 @@ add SoI4IoT/templates/field/admin.tpl "Template for admin field"
 add run.dev 'TOOLS: bash script to run web server, for dev only'
 add git.sh 'TOOLS: to comit easily the project to git'
 
-git commit -m "${VERSION}, ${1}"
+COMMENT="${VERSION}, ${1}"
+git commit -m "${COMMENT}"
 git push
 
 exit 0
