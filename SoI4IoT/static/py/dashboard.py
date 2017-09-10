@@ -15,9 +15,9 @@ from flask import Blueprint
 dashboard_app = Blueprint('dashboard_app', __name__)
 
 # Conf app
-api = Flask(__name__)
-api.config.from_object(__name__)
-api.config.from_envvar('FLASK_SETTING')
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config.from_envvar('FLASK_SETTING')
 
 # Dashboard ---------------------------------------
 @dashboard_app.route('/dashboard', methods=['GET', 'POST'])
