@@ -36,6 +36,10 @@ CREATE TABLE `tracking` (
   `webhook` varchar(128) NOT NULL,
   `address` varchar(256) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `humidity` double NOT NULL,
+  `luminosity` double NOT NULL,
+  `temp_amb` double NOT NULL,
+  `temp_sensor` double NOT NULL,
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
