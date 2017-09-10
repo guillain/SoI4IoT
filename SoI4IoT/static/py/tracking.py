@@ -15,9 +15,9 @@ from flask import Blueprint
 tracking_app = Blueprint('tracking_app', __name__)
 
 # Conf app
-api = Flask(__name__)
-api.config.from_object(__name__)
-api.config.from_envvar('FLASK_SETTING')
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config.from_envvar('FLASK_SETTING')
 
 # Tracking creation form -------------------------------------------
 @tracking_app.route('/newTracking', methods=['POST', 'GET'])
