@@ -20,13 +20,13 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
 # User creation form -------------------------------------------
-@user_app.route('/newUser', methods=['POST', 'GET'])
+@user_app.route('/html/v1.0/user/new', methods=['POST', 'GET'])
 def newUser():
-    wEvent('/newUser','request','Get new user','')
+    wEvent('/html/v1.0/user/new','request','Get new user','')
     return render_template('user.html', maps = '')
 
 # Save User ---------------------------------------------------
-@user_app.route('/saveUser', methods=['POST'])
+@user_app.route('/html/v1.0/user/save', methods=['POST'])
 def newUserSub():
     try:
         sql  = "INSERT INTO user SET login = '" + request.form['login'] + "', "
@@ -42,46 +42,46 @@ def newUserSub():
         sql += "  password = '" + request.form['password'] + "', enterprise = '" + request.form['enterprise'] + "', "
         sql += "  mobile = '" + request.form['mobile'] + "';"
         exeReq(sql)
-        wEvent('/saveUser','exeReq','Save','OK')
+        wEvent('/html/v1.0/user/save','exeReq','Save','OK')
         return 'Save OK'
     except Exception as e:
-        wEvent('/saveUser','exeReq','Save','KO')
+        wEvent('/html/v1.0/user/save','exeReq','Save','KO')
         return 'Save error'
 
 # View User ---------------------------------------------------
-@user_app.route('/viewUser', methods=['POST', 'GET'])
+@user_app.route('/html/v1.0/user/view', methods=['POST', 'GET'])
 def viewUser():
     try:
         sql  = "SELECT uid, login, firstname, lastname, email, address, enterprise, grp, mobile, password, admin "
         sql += "FROM user WHERE login = '" + request.args['login'] + "';"
         view = exeReq(sql)
-        wEvent('/viewUser','exeReq','Get','OK')
+        wEvent('/html/v1.0/user/view','exeReq','Get','OK')
         return render_template('user.html', view = view[0], maps = getMaps())
     except Exception as e:
-        wEvent('/viewUser','exeReq','Get','KO')
+        wEvent('/html/v1.0/user/view','exeReq','Get','KO')
         return 'View error'
 
 # List User --------------------------------------------------------
-@user_app.route('/listUser', methods=['POST', 'GET'])
+@user_app.route('/html/v1.0/user/list', methods=['POST', 'GET'])
 def listUser():
     try:
         list = exeReq("SELECT login, email, grp FROM user WHERE grp != 'deleted';")
-        wEvent('/listUser','exeReq','Get','OK')
+        wEvent('/html/v1.0/user/list','exeReq','Get','OK')
         return render_template('listUser.html', list = list, maps = getMaps())
     except Exception as e:
-        wEvent('/listUser','exeReq','Get','KO')
+        wEvent('/html/v1.0/user/list','exeReq','Get','KO')
         return 'List error'
 
 # Delete User ---------------------------------------------------
-@user_app.route('/deleteUser', methods=['POST', 'GET'])
+@user_app.route('/html/v1.0/user/delete', methods=['POST', 'GET'])
 def deleteUser():
     try:
         sql  = "UPDATE user SET grp = 'deleted' WHERE login = '" + request.args['login'] + "';"
         print sql
         exeReq(sql)
-        wEvent('/deleteUser','exeReq','Get','OK')
+        wEvent('/html/v1.0/user/delete','exeReq','Get','OK')
         return listUser()
     except Exception as e:
-        wEvent('/deleteUser ','exeReq','Get','KO')
+        wEvent('/html/v1.0/user/delete','exeReq','Get','KO')
         return 'Delete error'
 
