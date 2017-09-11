@@ -92,9 +92,8 @@ def exeReq(req):
 # DB exe and return Json
 def exeJson(req, fields):
     rows = exeReq(req)
+    json_rows = []
     for row in rows:
-        dict_row = dict(zip(fields, row))
-    return dict_row
-    return rows
-    return json.dumps( [dict(ix) for ix in rows] )
+        json_rows.append(u"{}".format(dict(zip(fields, row))))
+    return json_rows
 
