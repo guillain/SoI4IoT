@@ -17,6 +17,10 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
+# Load REST Full API server
+from static.py.api import api
+app.register_blueprint(api)
+
 # Import SoI4IoT features
 from static.py.login import login_app
 app.register_blueprint(login_app)
