@@ -44,8 +44,8 @@ CREATE TABLE `tracking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for table `user`
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(64) NOT NULL,
   `firstname` varchar(64) NOT NULL,
