@@ -20,13 +20,13 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
 # Device creation form -------------------------------------------
-@device_app.route('/newDevice', methods=['POST', 'GET'])
+@device_app.route('/html/v1.0/device/new', methods=['POST', 'GET'])
 def newDevice():
-    wEvent('/newDevice', 'request','Get new device','')
+    wEvent('/html/v1.0/device/new', 'request','Get new device','')
     return render_template('device.html', maps = '', loginList = loginList())
 
 # Save device ------------------------------------------------
-@device_app.route('/saveDevice', methods=['POST'])
+@device_app.route('/html/v1.0/device/save', methods=['POST'])
 def newDeviceSub():
     try:
         sql  = "INSERT INTO device SET name = '" + request.form['name'] + "', "
@@ -36,51 +36,51 @@ def newDeviceSub():
         sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
         sql += "  status = '" + request.form['status'] + "', description = '" + request.form['description'] + "';"
         exeReq(sql)
-        wEvent('/saveDevice','exeReq','Save','OK')
+        wEvent('/html/v1.0/device/save','exeReq','Save','OK')
         return 'Save OK'
     except Exception as e:
-        wEvent('/saveDevice','exeReq','Save','KO')
+        wEvent('/html/v1.0/device/save','exeReq','Save','KO')
         return 'Save error'
 
 # View Device ---------------------------------------------------
-@device_app.route('/viewDevice', methods=['POST', 'GET'])
+@device_app.route('/html/v1.0/device/view', methods=['POST', 'GET'])
 def viewDevice():
     try:
         sql  = "SELECT d.did, u.login, d.name, d.description, d.status, d.lastupdate "
         sql += "FROM device d, user u "
         sql += "WHERE d.uid = u.uid AND d.name = '" + request.args['name'] + "';"
         view = exeReq(sql)
-        wEvent('/viewDevice','exeReq','Get','OK')
+        wEvent('/html/v1.0/device/view','exeReq','Get','OK')
         return render_template('device.html', view = view[0], maps = getMaps(), loginList = loginList())
     except Exception as e:
-        wEvent('/viewDevice ','exeReq','Get','KO')
+        wEvent('/html/v1.0/device/view','exeReq','Get','KO')
         return 'View error'
 
 # List --------------------------------------------------------
-@device_app.route('/listDevice', methods=['POST', 'GET'])
+@device_app.route('/html/v1.0/device/list', methods=['POST', 'GET'])
 def listDevice():
     try:
         sql  = "SELECT d.name, u.login, d.status, d.lastupdate "
         sql += "FROM device d, user u "
         sql += "WHERE d.uid = u.uid AND d.status != 'deleted' AND u.grp != 'deleted';"
         list = exeReq(sql)
-        wEvent('/listDevice','exeReq','Get list','OK')
+        wEvent('/html/v1.0/device/list','exeReq','Get list','OK')
         return render_template('listDevice.html', list = list, maps = getMaps())
     except Exception as e:
-        wEvent('/listDevice','exeReq','Get list','KO')
+        wEvent('/html/v1.0/device/list','exeReq','Get list','KO')
         return 'List error'
 
 # Delete Device ---------------------------------------------------
-@device_app.route('/deleteDevice', methods=['POST', 'GET'])
+@device_app.route('/html/v1.0/device/delete', methods=['POST', 'GET'])
 def deleteDevice():
     try:
         sql  = "UPDATE device d, user u SET d.status = 'deleted' "
         sql += "WHERE d.uid = u.uid AND d.name = '" + request.args['name'] + "';"
         print sql
         view = exeReq(sql)
-        wEvent('/deleteDevice','exeReq','Get','OK')
+        wEvent('/html/v1.0/device/delete','exeReq','Get','OK')
         return listDevice()
     except Exception as e:
-        wEvent('/deleteDevice ','exeReq','Get','KO')
+        wEvent('/html/v1.0/device/delete','exeReq','Get','KO')
         return 'Delete error'
 
