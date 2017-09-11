@@ -20,12 +20,12 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
 # Dashboard ---------------------------------------
-@dashboard_app.route('/dashboard', methods=['GET', 'POST'])
+@dashboard_app.route('/html/v1.0/dashboard', methods=['GET', 'POST'])
 def dashboard():
     try:
-        wEvent('/dashboard','exeReq','Get','OK')
+        wEvent('/html/v1.0/dashboard','exeReq','Get','OK')
         return render_template('dashboard.html', maps = getMaps())
     except Exception as e:
-        wEvent('/dashboard','exeReq','Get','KO')
+        wEvent('/html/v1.0/dashboard','exeReq','Get','KO')
         return 'Dashboard error'
 
