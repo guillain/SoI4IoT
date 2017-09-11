@@ -20,13 +20,13 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
 # Customer creation form -------------------------------------------
-@customer_app.route('/newCustomer', methods=['POST', 'GET'])
+@customer_app.route('/html/v1.0/customer/new', methods=['POST', 'GET'])
 def newCustomer():
-    wEvent('/newCustomer','request','Get new user','')
+    wEvent('/html/v1.0/customer/new','request','Get new user','')
     return render_template('customer.html', maps = '')
 
 # Save Customer ---------------------------------------------------
-@customer_app.route('/saveCustomer', methods=['POST'])
+@customer_app.route('/html/v1.0/customer/save', methods=['POST'])
 def newCustomerSub():
     try:
         sql  = "INSERT INTO user SET login = '" + request.form['login'] + "', "
@@ -42,46 +42,46 @@ def newCustomerSub():
         sql += "  password = '" + request.form['password'] + "', enterprise = '" + request.form['enterprise'] + "', "
         sql += "  mobile = '" + request.form['mobile'] + "';"
         exeReq(sql)
-        wEvent('/saveCustomer','exeReq','Save','OK')
+        wEvent('/html/v1.0/customer/save','exeReq','Save','OK')
         return 'Save OK'
     except Exception as e:
-        wEvent('/saveCustomer','exeReq','Save','KO')
+        wEvent('/html/v1.0/customer/save','exeReq','Save','KO')
         return 'Save error'
 
 # View Customer ---------------------------------------------------
-@customer_app.route('/viewCustomer', methods=['POST', 'GET'])
+@customer_app.route('/html/v1.0/customer/view', methods=['POST', 'GET'])
 def viewCustomer():
     try:
         sql  = "SELECT login, firstname, lastname, email, address, enterprise, mobile, password "
         sql += "FROM user WHERE login = '" + request.args['login'] + "' AND grp = 'customer';"
         view = exeReq(sql)
-        wEvent('/viewCustomer','exeReq','Get','OK')
+        wEvent('/html/v1.0/customer/view','exeReq','Get','OK')
         return render_template('customer.html', view = view[0], maps = getMaps())
     except Exception as e:
-        wEvent('/viewCustomer','exeReq','Get','KO')
+        wEvent('/html/v1.0/customer/view','exeReq','Get','KO')
         return 'View error'
 
 # List Customer --------------------------------------------------------
-@customer_app.route('/listCustomer', methods=['POST', 'GET'])
+@customer_app.route('/html/v1.0/customer/list', methods=['POST', 'GET'])
 def listCustomer():
     try:
         list = exeReq("SELECT login, email, grp FROM user WHERE grp = 'customer';")
-        wEvent('/listCustomer','exeReq','Get','OK')
+        wEvent('/html/v1.0/customer/list','exeReq','Get','OK')
         return render_template('listCustomer.html', list = list, maps = getMaps())
     except Exception as e:
-        wEvent('/listCustomer','exeReq','Get','KO')
+        wEvent('/html/v1.0/customer/list','exeReq','Get','KO')
         return 'List error'
 
 # Delete Customer ---------------------------------------------------
-@customer_app.route('/deleteCustomer', methods=['POST', 'GET'])
+@customer_app.route('/html/v1.0/customer/delete', methods=['POST', 'GET'])
 def deleteCustomer():
     try:
         sql  = "UPDATE user SET grp = 'deleted' WHERE login = '" + request.args['login'] + "';"
         print sql
         exeReq(sql)
-        wEvent('/deleteCustomer','exeReq','Get','OK')
+        wEvent('/html/v1.0/customer/delete','exeReq','Get','OK')
         return listCustomer()
     except Exception as e:
-        wEvent('/deleteCustomer ','exeReq','Get','KO')
+        wEvent('/html/v1.0/customer/delete','exeReq','Get','KO')
         return 'Delete error'
 
