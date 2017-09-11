@@ -21,7 +21,7 @@ api.config.from_envvar('FLASK_SETTING')
 
 
 # Record ------------------------------------------------------
-@login_app.route('/login', methods=['POST', 'GET'])
+@login_app.route('/html/v1.0/login', methods=['POST', 'GET'])
 def login():
     error = None
     if 'login' in session:
@@ -29,42 +29,42 @@ def login():
 
     login = request.form['login']
     if not login:
-        wEvent('/login','arg','Thanks to provide login','KO')
+        wEvent('/html/v1.0/login','arg','Thanks to provide login','KO')
         return render_template('login.html')
 
     password = request.form['password']
     if not password:
-        wEvent('/login','arg','Thanks to provide password','KO')
+        wEvent('/html/v1.0/login','arg','Thanks to provide password','KO')
         return render_template('login.html')
 
     try:
         data = exeReq("SELECT grp, admin FROM user WHERE login='"+login+"' AND password=PASSWORD('"+password+"')")
     except Exception as e:
-        wEvent('/login','','DB connection/request', 'KO')
+        wEvent('/html/v1.0/login','','DB connection/request', 'KO')
         return render_template('login.html')
 
     try:
       if data is None or data[0][0] is None:
-        wEvent('/login','','Wrong email or password','KO')
+        wEvent('/html/v1.0/login','','Wrong email or password','KO')
         return render_template('login.html')
     except Exception as e:
-      wEvent('/login','','Wrong email or password','KO')
+      wEvent('/html/v1.0/login','','Wrong email or password','KO')
       return render_template('login.html')
 
     try:
         session['login'] = str(login)
         session['grp'] = str(data[0][0])
         session['admin'] = str(data[0][1])
-        wEvent('/login',session['login'],"User "+session['login']+" logged",'OK')
+        wEvent('/html/v1.0/login',session['login'],"User "+session['login']+" logged",'OK')
         return render_template('welcome.html')
     except Exception as e:
-        wEvent('/login','','Wrong email or password','KO')
+        wEvent('/html/v1.0/login','','Wrong email or password','KO')
         return render_template('login.html')
 
 # Logout --------------------------------------------------
-@login_app.route('/logout')
+@login_app.route('/html/v1.0/logout')
 def logout():
-  wEvent('/logout',session['login'],'You were logged out','OK')
+  wEvent('/html/v1.0/logout',session['login'],'You were logged out','OK')
   session.clear()
   return redirect('/')
 
