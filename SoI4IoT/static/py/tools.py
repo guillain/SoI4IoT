@@ -5,7 +5,9 @@
 # Copyright 2017 GPL - Guillain
 
 from flask import Flask, session, redirect, url_for, escape, request, flash
-import MySQLdb
+from contextlib import closing
+from datetime import datetime
+import MySQLdb, json
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -50,7 +52,7 @@ def logger(fct,msg):
 
 def wEvent(module, user, msg, status = None):
     logger(module,msg + ' ' + status)
-    return exeReq("INSERT INTO events (module, user, msg, status) VALUES ('"+module+"', '"+user+"', '"+msg+"', '"+status+"');")
+    return exeReq("INSERT INTO event (module, user, msg, status) VALUES ('"+module+"', '"+user+"', '"+msg+"', '"+status+"');")
 
 # DB functions
 def connection():
@@ -62,7 +64,6 @@ def connection():
     )
     c = conn.cursor()
     return c, conn
-
 
 def exeReq(req):
     error = None
@@ -87,4 +88,13 @@ def exeReq(req):
     except Exception as e:
         logger('DB fetch data issue')
         return e
+
+# DB exe and return Json
+def exeJson(req, fields):
+    rows = exeReq(req)
+    for row in rows:
+        dict_row = dict(zip(fields, row))
+    return dict_row
+    return rows
+    return json.dumps( [dict(ix) for ix in rows] )
 
