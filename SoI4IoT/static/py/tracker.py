@@ -20,26 +20,26 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASK_SETTING')
 
 # Tracker ---------------------------------------
-@tracker_app.route('/tracker', methods=['GET', 'POST'])
+@tracker_app.route('/html/v1.0/tracker', methods=['GET', 'POST'])
 def tracker():
     try:
-        wEvent('/tracker','exeReq','Get','OK')
+        wEvent('/html/v1.0/tracker','exeReq','Get','OK')
         return render_template('tracker.html', maps = getMaps(), loginList = loginList(), nameList = nameList())
     except Exception as e:
-        wEvent('/tracker','exeReq','Get','KO')
+        wEvent('/html/v1.0/tracker','exeReq','Get','KO')
         return 'Tracker error'
 
-@tracker_app.route('/saveTracker', methods=['POST'])
+@tracker_app.route('/html/v1.0/tracker/save', methods=['POST'])
 def saveTracker():
     try:
-        wEvent('/saveTracker','exeReq','Get','OK')
+        wEvent('/html/v1.0/tracker/save','exeReq','Get','OK')
         return 'Tracking update ongoing'
     except Exception as e:
-        wEvent('/saveTracker','exeReq','Get','KO')
+        wEvent('/html/v1.0/tracker/save','exeReq','Get','KO')
         return 'Tracker error'
 
 # Rec GPS
-@tracker_app.route('/recGPS', methods=['POST'])
+@tracker_app.route('/html/v1.0/tracker/recGPS', methods=['POST'])
 def recGPS():
     gps = request.form['latitude'] + ',' + request.form['longitude'];
 
@@ -49,9 +49,9 @@ def recGPS():
         sql += "  name = '" + request.user_agent.browser + "', status = 'ok', description = '" + request.user_agent.string + "' "
         sql += "ON DUPLICATE KEY UPDATE status = 'ok';"
         exeReq(sql)
-        wEvent('/recGPS','exeReq','Add or update web device','OK')
+        wEvent('/html/v1.0/tracker/recGPS','exeReq','Add or update web device','OK')
     except Exception as e:
-        wEvent('/recGPS','exeReq','Add or update web device','KO')
+        wEvent('/html/v1.0/tracker/recGPS','exeReq','Add or update web device','KO')
         return 'Add or update web device error'
 
     # Add new localisation
@@ -61,9 +61,9 @@ def recGPS():
         sql += "  did = (SELECT did FROM device WHERE name = '" + request.user_agent.browser + "'), "
         sql += "  gps = '" + str(gps) + "';"
         exeReq(sql)
-        wEvent('/recGPS','exeReq','GPS record','OK')
+        wEvent('/html/v1.0/tracker/recGPS','exeReq','GPS record','OK')
         return 'GPS record OK'
     except Exception as e:
-        wEvent('/recGPS','exeReq','GPS record','KO')
+        wEvent('/html/v1.0/tracker/recGPS','exeReq','GPS record','KO')
         return 'GPS record error'
 
