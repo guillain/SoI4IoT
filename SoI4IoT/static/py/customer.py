@@ -22,8 +22,12 @@ app.config.from_envvar('FLASK_SETTING')
 # Customer creation form -------------------------------------------
 @customer_app.route('/html/v1.0/customer/new', methods=['POST', 'GET'])
 def newCustomer():
-    wEvent('/html/v1.0/customer/new','request','Get new user','')
-    return render_template('customer.html', maps = '')
+    try:
+        wEvent('/html/v1.0/customer/new','request','Get new user','OK')
+        return render_template('customer.html', maps = '')
+    except Exception as e:
+        wEvent('/html/v1.0/customer/new','request','Get new user','KO')
+        return 'New error'
 
 # Save Customer ---------------------------------------------------
 @customer_app.route('/html/v1.0/customer/save', methods=['POST'])
