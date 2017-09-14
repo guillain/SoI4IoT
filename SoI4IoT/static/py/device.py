@@ -22,8 +22,12 @@ app.config.from_envvar('FLASK_SETTING')
 # Device creation form -------------------------------------------
 @device_app.route('/html/v1.0/device/new', methods=['POST', 'GET'])
 def newDevice():
-    wEvent('/html/v1.0/device/new', 'request','Get new device','')
-    return render_template('device.html', maps = '', loginList = loginList())
+    try:
+        wEvent('/html/v1.0/device/new', 'request','Get new device','OK')
+        return render_template('device.html', maps = '', loginList = loginList())
+    except Exception as e:
+        wEvent('/html/v1.0/device/new','request','Get new device','KO')
+        return 'New error'
 
 # Save device ------------------------------------------------
 @device_app.route('/html/v1.0/device/save', methods=['POST'])
