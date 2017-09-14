@@ -11,7 +11,7 @@
   $(function() {
     $('a#saveUser').bind('click', function() {
         $.ajax({
-            url: 'saveUser',
+            url: 'save',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
@@ -29,7 +29,7 @@
   $(function() {
     $('a#saveCustomer').bind('click', function() {
         $.ajax({
-            url: 'saveCustomer',
+            url: 'save',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
@@ -47,7 +47,7 @@
   $(function() {
     $('a#saveDevice').bind('click', function() {
         $.ajax({
-            url: 'saveDevice',
+            url: 'save',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
@@ -65,7 +65,7 @@
   $(function() {
     $('a#saveTracking').bind('click', function() {
         $.ajax({
-            url: 'saveTracking',
+            url: 'save',
             data: $('form').serialize(),
             type: 'POST',
             success: function(data) {
@@ -82,7 +82,7 @@
 /* Refresh function */
   function trackerFct(){
     $.ajax({
-      url: 'saveTracker',
+      url: 'save',
       data: $('form').serialize(),
       type: 'POST',
       success: function(data) {
