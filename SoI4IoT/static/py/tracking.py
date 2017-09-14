@@ -22,8 +22,12 @@ app.config.from_envvar('FLASK_SETTING')
 # Tracking creation form -------------------------------------------
 @tracking_app.route('/html/v1.0/tracking/new', methods=['POST', 'GET'])
 def newTracking():
-    wEvent('/html/v1.0/tracking/new','request','Get new tracking','')
-    return render_template('tracking.html', maps = '', loginList = loginList(), nameList = nameList())
+    try:
+        wEvent('/html/v1.0/tracking/new','request','Get new tracking','OK')
+        return render_template('tracking.html', maps = '', loginList = loginList(), nameList = nameList())
+    except Exception as e:
+        wEvent('/html/v1.0/tracking/new','request','Get new tracking','KO')
+        return 'New error'
 
 # Save Tracking ---------------------------------------------------
 @tracking_app.route('/html/v1.0/tracking/save', methods=['POST'])
