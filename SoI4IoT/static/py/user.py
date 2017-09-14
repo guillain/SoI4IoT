@@ -22,8 +22,12 @@ app.config.from_envvar('FLASK_SETTING')
 # User creation form -------------------------------------------
 @user_app.route('/html/v1.0/user/new', methods=['POST', 'GET'])
 def newUser():
-    wEvent('/html/v1.0/user/new','request','Get new user','')
-    return render_template('user.html', maps = '')
+    try:
+        wEvent('/html/v1.0/user/new','request','Get new user','OK')
+        return render_template('user.html', maps = '')
+    except Exception as e:
+        wEvent('/html/v1.0/user/new','request','Get new user','KO')
+        return 'New error'
 
 # Save User ---------------------------------------------------
 @user_app.route('/html/v1.0/user/save', methods=['POST'])
