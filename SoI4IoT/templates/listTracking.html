@@ -5,7 +5,7 @@
           <div id="listTrackingDiv">
             <h2>List Tracking</h2>
             <table class="center">
-              <tr><th>ID</th><th>User Login</th><th>Device Name</th><th>Timestamp</th><th>Localisation</th></tr>
+              <tr><th>ID</th><th>User Login</th><th>Device Name</th><th>Timestamp</th><th>Tracking</th></tr>
               {% for view in list %}
               <tr>
                 <td><a href="{{ url_for('tracking_app.viewTracking') }}?tracking={{ view[0] }}" style="text-align:left;">{{ view[0] }}</a></td>
