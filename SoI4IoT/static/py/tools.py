@@ -15,10 +15,14 @@ app.config.from_envvar('FLASK_SETTING')
 
 # Get user list
 def loginList():
-  return exeReq("SELECT DISTINCT login FROM user ORDER BY login")
+  return exeReq("SELECT DISTINCT login FROM user WHERE grp NOT IN ('deleted','archived') ORDER BY login")
 
 def nameList():
-  return exeReq("SELECT DISTINCT name FROM device ORDER BY name")
+  sql  = "SELECT d.name "
+  sql += "FROM device d, user u "
+  sql += "WHERE d.uid = u.uid AND d.status != 'deleted' AND u.grp != 'deleted' "
+  sql += "ORDER BY name;"
+  return exeReq(sql)
 
 # GPS SQL fct
 def getMaps():
