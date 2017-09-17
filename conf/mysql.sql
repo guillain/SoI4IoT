@@ -24,22 +24,23 @@ CREATE TABLE `events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for table `tracking`
-DROP TABLE IF EXISTS `tracking`;
-CREATE TABLE `tracking` (
-  `tid` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `did` int(11) NOT NULL,
-  `ip` varchar(32) NOT NULL,
-  `gps` varchar(32) NOT NULL,
-  `url` varchar(128) NOT NULL,
-  `website` varchar(128) NOT NULL,
-  `webhook` varchar(128) NOT NULL,
-  `address` varchar(256) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `humidity` double NOT NULL,
-  `luminosity` double NOT NULL,
-  `temp_amb` double NOT NULL,
-  `temp_sensor` double NOT NULL,
+DROP TABLE IF EXISTS tracking;
+CREATE TABLE tracking (
+  tid int(11) NOT NULL,
+  uid int(11) DEFAULT NULL,
+  did int(11) NOT NULL,
+  ip varchar(32) DEFAULT NULL,
+  gps varchar(32) DEFAULT NULL,
+  url varchar(128) DEFAULT NULL,
+  website varchar(128) DEFAULT NULL,
+  webhook varchar(128) DEFAULT NULL,
+  address varchar(256) DEFAULT NULL,
+  timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  humidity double DEFAULT NULL,
+  luminosity double DEFAULT NULL,
+  temp_amb double DEFAULT NULL,
+  temp_sensor double DEFAULT NULL,
+  data text COMMENT 'Raw data',
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
