@@ -77,7 +77,7 @@ nav {
 listUser,customer,listCustomer,user,listDevice,device,listTracking,tracker,tracking {
   width: 45%;
   height: 100%;
-  max-height: 400px;
+  max-height: 600px;
   text-align: center;
 }
 gmap {
