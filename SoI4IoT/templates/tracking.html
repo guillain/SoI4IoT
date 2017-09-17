@@ -54,6 +54,10 @@
                     <td>Timestamp</td>
                     <td><input type="text" name="timestamp" id="timestamp" placeholder="Timestamp" value="{% if view is defined %}{{ view[9] }}{% endif %}" /></td>
                   </tr>
+                  <tr>
+                    <td>Raw data</td>
+                    <td colspan="3"><input type="text" name="url" id="url" placeholder="Raw data" value="{% if view is defined %}{{ view[14] }}{% endif %}" /></td>
+                  </tr>
                 </table>
               </div> <!-- Tracking div -->
               <div id="saveTrackingDiv"><a href="#" id="saveTracking">Save</a></div>
