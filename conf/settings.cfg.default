@@ -20,6 +20,10 @@ MYSQL_DB='SoI4IoT'
 # Google Map Key API
 GOOGLE_MAP_KEY_API=''
 
+# Server API auth & token
+API_USER = ''
+API_TOKEN = ''
+
 # SoI4IoT conf
 GROUP="manager commercial distributor customer"
 
