@@ -37,13 +37,13 @@ def newUserSub():
         sql += "  firstname = '" + request.form['firstname'] + "', lastname = '" + request.form['lastname'] + "', "
         sql += "  email = '" + request.form['email'] + "', address = '" +request.form['address'] + "', "
         sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
-        sql += "  password = '" + request.form['password'] + "', enterprise = '" + request.form['enterprise'] + "', "
+        sql += "  password = PASSWORD('" + request.form['password'] + "'), enterprise = '" + request.form['enterprise'] + "', "
         sql += "  mobile = '" + request.form['mobile'] + "' "
         sql += "ON DUPLICATE KEY UPDATE "
         sql += "  firstname = '" + request.form['firstname'] + "', lastname = '" + request.form['lastname'] + "', "
         sql += "  email = '" + request.form['email'] + "', address = '" +request.form['address'] + "', "
         sql += "  admin = '" + request.form['admin'] + "', grp = '" + request.form['grp'] + "', "
-        sql += "  password = '" + request.form['password'] + "', enterprise = '" + request.form['enterprise'] + "', "
+        sql += "  password = PASSWORD('" + request.form['password'] + "'), enterprise = '" + request.form['enterprise'] + "', "
         sql += "  mobile = '" + request.form['mobile'] + "';"
         exeReq(sql)
         wEvent('/html/v1.0/user/save','exeReq','Save','OK')
