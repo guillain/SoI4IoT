@@ -38,6 +38,8 @@ def get_fields(ref):
         return [ 'tid', 'uid', 'did', 'ip', 'gps', 'url', 'website', 'webhook', 'address', 'timestamp', 'humidity', 'luminosity', 'temp_amb', 'temp_sensor', 'data' ]
     elif 'user' in ref:
         return [ 'uid', 'login', 'firstname', 'lastname', 'email', 'address', 'enterprise', 'grp', 'mobile', 'password', 'admin' ]
+    elif 'iot' in ref:
+        return [ 'tid', 'uid', 'did', 'humidity', 'luminosity', 'temp_amb', 'temp_sensor', 'data' ]
     else:
         wEvent('400','api',ref,'KO')
         abort(400)
@@ -98,15 +100,26 @@ def get_items(item, item_id = None):
 @auth.login_required
 def create_item(item):
     try:
-        fields = get_fields(item)
-
         if not request.json or not item in request.json:
             abort(400)
 
-        sql = 'INSERT INTO {} SET '.format(item)
-        for field in request.json[item]:
-            sql += '{} = "{}", '.format(field, request.json[item][field])
-        sql = sql[:-2] + ';'
+        if 'iot' in item:
+            sql  = "INSERT INTO tracking SET "
+            sql += "uid = '{}', ".format(request.json[item]['uid'])
+            sql += "did = '{}', ".format(request.json[item]['did'])
+            sql += "humidity = '{}', ".format(request.json[item]['hum'])
+            sql += "luminosity = '{}', ".format(request.json[item]['lum'])
+            sql += "temp_amb = '{}', ".format(request.json[item]['tam'])
+            sql += "temp_sensor = '{}', ".format(request.json[item]['tse'])
+            sql += 'data = "{}";'.format(request.json)
+            item = 'tracking'
+        else:
+            fields = get_fields(item)
+
+            sql = 'INSERT INTO {} SET '.format(item)
+            for field in request.json[item]:
+                sql += '{} = "{}", '.format(field, request.json[item][field])
+            sql = sql[:-2] + ';'
 
         exeReq(sql)
 
