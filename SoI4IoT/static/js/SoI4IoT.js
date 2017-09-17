@@ -82,7 +82,7 @@
 /* Refresh function */
   function trackerFct(){
     $.ajax({
-      url: 'save',
+      url: 'tracker/save',
       data: $('form').serialize(),
       type: 'POST',
       success: function(data) {
@@ -142,7 +142,7 @@ function recPosition(position) {
     alert("Position has been recorded for the user " + login + "\n* Lat.: " + latitude + "\n* Long.: " + longitude);
 
     $.ajax({
-            url: 'recGPS',
+            url: 'tracker/recGPS',
             data: { 'login':login, 'latitude':latitude, 'longitude':longitude},
             type: 'POST',
             success: function(data) {
@@ -152,7 +152,6 @@ function recPosition(position) {
                 $("#result").text(error);
             }
         });
-
 }
 
 
