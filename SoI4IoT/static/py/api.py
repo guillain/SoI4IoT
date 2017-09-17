@@ -35,7 +35,7 @@ def get_fields(ref):
     elif 'event' in ref:
         return [ 'eid', 'module', 'user', 'timestamp', 'msg', 'status' ]
     elif 'tracking' in ref:
-        return [ 'tid', 'uid', 'did', 'ip', 'gps', 'url', 'website', 'webhook', 'address', 'timestamp', 'humidity', 'luminosity', 'temp_amb', 'temp_sensor' ]
+        return [ 'tid', 'uid', 'did', 'ip', 'gps', 'url', 'website', 'webhook', 'address', 'timestamp', 'humidity', 'luminosity', 'temp_amb', 'temp_sensor', 'data' ]
     elif 'user' in ref:
         return [ 'uid', 'login', 'firstname', 'lastname', 'email', 'address', 'enterprise', 'grp', 'mobile', 'password', 'admin' ]
     else:
@@ -98,12 +98,14 @@ def get_items(item, item_id = None):
 @auth.login_required
 def create_item(item):
     try:
+        fields = get_fields(item)
+
         if not request.json or not item in request.json:
             abort(400)
 
         sql = 'INSERT INTO {} SET '.format(item)
         for field in request.json[item]:
-            sql += "{} = '{}', ".format(field, request.json[item][field])
+            sql += '{} = "{}", '.format(field, request.json[item][field])
         sql = sql[:-2] + ';'
 
         exeReq(sql)
@@ -174,14 +176,11 @@ def unauthorized():
 # Authentification functions
 @auth.get_password
 def get_password(username):
-    if username == 'token':
-        return '0ecbd12f107cc40df1e93d98ddf82571f0493ca9d759bf5f222b75f2cf9d5d65'
+    if username == app.config['API_USER']:
+        return app.config['API_TOKEN']
     return None
 
 def get_auth_token():
-    '''
-    get an auth token
-    '''
     req=urllib2.Request("https://xforce-api.mybluemix.net/auth/anonymousToken")
     response=urllib2.urlopen(req)
     html=response.read()
@@ -190,9 +189,6 @@ def get_auth_token():
     return token_string
 
 def get_response_json_object(url, auth_token):
-    '''
-      returns json object with info
-    '''
     auth_token=get_auth_token()
     req=urllib2.Request(url, None, {"Authorization": "Bearer %s" %auth_token})
     response=urllib2.urlopen(req)
