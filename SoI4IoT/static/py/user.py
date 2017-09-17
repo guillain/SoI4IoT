@@ -56,7 +56,7 @@ def newUserSub():
 @user_app.route('/html/v1.0/user/view', methods=['POST', 'GET'])
 def viewUser():
     try:
-        sql  = "SELECT uid, login, firstname, lastname, email, address, enterprise, grp, mobile, password, admin "
+        sql  = "SELECT uid, login, firstname, lastname, email, address, enterprise, grp, mobile, '', admin "
         sql += "FROM user WHERE login = '" + request.args['login'] + "';"
         view = exeReq(sql)
         wEvent('/html/v1.0/user/view','exeReq','Get','OK')
