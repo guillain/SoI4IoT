@@ -41,7 +41,7 @@ def saveTracking():
         sql += "  address = '"  + request.form['address']  + "', ip = '" +request.form['ip'] + "', "
         sql += "  humidity = '" + request.form['humidity'] + "', luminosity = '" + request.form['luminosity'] + "', "
         sql += "  temp_amb = '" + request.form['temp_amb'] + "', temp_sensor = '" +request.form['temp_sensor'] + "', "
-        sql += "  data = '"     + request.get_json()       + "' "
+        sql += "  data = '{}' ".format(request.json)
         sql += "ON DUPLICATE KEY UPDATE "
         sql += "  uid = (SELECT uid FROM user WHERE login = '"  + request.form['login'] + "'), "
         sql += "  did = (SELECT did FROM device WHERE name = '" + request.form['name'] + "'), "
@@ -50,7 +50,7 @@ def saveTracking():
         sql += "  address = '"  + request.form['address']  + "', ip = '" +request.form['ip'] + "', "
         sql += "  humidity = '" + request.form['humidity'] + "', luminosity = '" + request.form['luminosity'] + "', "
         sql += "  temp_amb = '" + request.form['temp_amb'] + "', temp_sensor = '" +request.form['temp_sensor'] + "', "
-        sql += "  data = '"     + request.get_json()       + "';"
+        sql += "  data = '{}'; ".format(request.json)
         exeReq(sql)
         wEvent('/html/v1.0/tracking/save','exeReq','Save','OK')
         return 'Save OK'
