@@ -34,21 +34,23 @@ def newTracking():
 def saveTracking():
     try:
         sql  = "INSERT INTO tracking SET tid = '" + request.form['tracking'] + "', "
-        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
+        sql += "  uid = (SELECT uid FROM user WHERE login = '"  + request.form['login'] + "'), "
         sql += "  did = (SELECT did FROM device WHERE name = '" + request.form['name'] + "'), "
-        sql += "  gps = '" + request.form['gps'] + "', url = '" +request.form['url'] + "', "
-        sql += "  website = '" + request.form['website'] + "', webhook = '" + request.form['webhook'] + "', "
-        sql += "  address = '" + request.form['address'] + "', ip = '" +request.form['ip'] + "', "
+        sql += "  gps = '"      + request.form['gps']      + "', url = '" +request.form['url'] + "', "
+        sql += "  website = '"  + request.form['website']  + "', webhook = '" + request.form['webhook'] + "', "
+        sql += "  address = '"  + request.form['address']  + "', ip = '" +request.form['ip'] + "', "
         sql += "  humidity = '" + request.form['humidity'] + "', luminosity = '" + request.form['luminosity'] + "', "
-        sql += "  temp_amb = '" + request.form['temp_amb'] + "', temp_sensor = '" +request.form['temp_sensor'] + "' "
+        sql += "  temp_amb = '" + request.form['temp_amb'] + "', temp_sensor = '" +request.form['temp_sensor'] + "', "
+        sql += "  data = '"     + request.get_json()       + "' "
         sql += "ON DUPLICATE KEY UPDATE "
-        sql += "  uid = (SELECT uid FROM user WHERE login = '" + request.form['login'] + "'), "
+        sql += "  uid = (SELECT uid FROM user WHERE login = '"  + request.form['login'] + "'), "
         sql += "  did = (SELECT did FROM device WHERE name = '" + request.form['name'] + "'), "
-        sql += "  gps = '" + request.form['gps'] + "', url = '" +request.form['url'] + "', "
-        sql += "  website = '" + request.form['website'] + "', webhook = '" + request.form['webhook'] + "', "
-        sql += "  address = '" + request.form['address'] + "', ip = '" +request.form['ip'] + "', "
+        sql += "  gps = '"      + request.form['gps']      + "', url = '" +request.form['url'] + "', "
+        sql += "  website = '"  + request.form['website']  + "', webhook = '" + request.form['webhook'] + "', "
+        sql += "  address = '"  + request.form['address']  + "', ip = '" +request.form['ip'] + "', "
         sql += "  humidity = '" + request.form['humidity'] + "', luminosity = '" + request.form['luminosity'] + "', "
-        sql += "  temp_amb = '" + request.form['temp_amb'] + "', temp_sensor = '" +request.form['temp_sensor'] + "';"
+        sql += "  temp_amb = '" + request.form['temp_amb'] + "', temp_sensor = '" +request.form['temp_sensor'] + "', "
+        sql += "  data = '"     + request.get_json()       + "';"
         exeReq(sql)
         wEvent('/html/v1.0/tracking/save','exeReq','Save','OK')
         return 'Save OK'
@@ -60,7 +62,7 @@ def saveTracking():
 @tracking_app.route('/html/v1.0/tracking/view', methods=['POST', 'GET'])
 def viewTracking():
     try:
-        sql  = "SELECT t.tid, u.login, d.name, t.ip, t.gps, t.url, t.website, t.webhook, t.address, t.timestamp, t.humidity, t.luminosity, t.temp_amb, t.temp_sensor "
+        sql  = "SELECT t.tid, u.login, d.name, t.ip, t.gps, t.url, t.website, t.webhook, t.address, t.timestamp, t.humidity, t.luminosity, t.temp_amb, t.temp_sensor, t.data "
         sql += "FROM tracking t, user u, device d "
         sql += "WHERE u.uid = t.uid AND t.did = d.did AND t.tid = '" + request.args['tracking'] + "';"
         view = exeReq(sql)
@@ -74,9 +76,11 @@ def viewTracking():
 @tracking_app.route('/html/v1.0/tracking/list', methods=['POST', 'GET'])
 def listTracking():
     try:
-        sql  = "SELECT t.tid, u.login, d.name, t.timestamp, CONCAT_WS(t.ip, t.gps, t.url, t.website, t.webhook, t.address, t.humidity, t.luminosity, t.temp_amb, t.temp_sensor) "
+        sql  = "SELECT t.tid, u.login, d.name, t.timestamp, data "
+        #CONCAT_WS(t.ip, t.gps, t.url, t.website, t.webhook, t.address, t.humidity, t.luminosity, t.temp_amb, t.temp_sensor) "
         sql += "FROM tracking t, user u, device d "
-        sql += "WHERE t.uid = u.uid AND t.did = d.did AND u.grp != 'deleted' AND d.status != 'deleted';"
+        sql += "WHERE t.uid = u.uid AND t.did = d.did AND u.grp != 'deleted' AND d.status != 'deleted' "
+        sql += "ORDER BY t.tid DESC"
         list = exeReq(sql)
         wEvent('/html/v1.0/tracking/list','exeReq','Get list','OK')
         return render_template('listTracking.html', list = list, maps = getMaps())
