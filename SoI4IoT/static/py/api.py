@@ -113,6 +113,29 @@ def create_item(item):
             sql += "temp_sensor = '{}', ".format(request.json[item]['tse'])
             sql += 'data = "{}";'.format(request.json)
             item = 'tracking'
+        elif 'lebonsailounge' in item:
+            print('lebonsailounge')
+
+            # Create device if not exist
+            did = exeReq("SELECT count(*) WHERE name = '{}';".format(request.json[item]['device']))
+            did = re.sub("[^0-9]", "","{}".format(did))
+            if did == 0:
+                sql  = "INSERT INTO device SET "
+                sql += "name = '{}'".format(request.json[item]['device'])
+                sql += "status = 'to register'"
+                exeReq(sql)
+
+            sql  = "INSERT INTO tracking SET "
+            sql += "uid = (SELECT uid FROM device WHERE name = '{}'), ".format(request.json[item]['device'])
+            sql += "did = (SELECT did FROM device WHERE name = '{}'), ".format(request.json[item]['device'])
+            sql += "gps = '{},{}', ".format(request.json[item]['lat'], request.json[item]['lng'])
+            #sql += "humidity = '{}', ".format(request.json[item]['hum'])
+            #sql += "luminosity = '{}', ".format(request.json[item]['lum'])
+            #sql += "temp_amb = '{}', ".format(request.json[item]['tam'])
+            #sql += "temp_sensor = '{}', ".format(request.json[item]['tse'])
+            sql += 'data = "{}";'.format(request.json)
+            item = 'tracking'
+            print(sql)
         else:
             fields = get_fields(item)
 
