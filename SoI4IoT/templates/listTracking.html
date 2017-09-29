@@ -4,6 +4,8 @@
         <listTracking>
           <div id="listTrackingDiv">
             <h2>List Tracking</h2>
+            {{ pagination.info }}
+            {{ pagination.links }}
             <table class="center">
               <tr><th>ID</th><th>User Login</th><th>Device Name</th><th>Timestamp</th><th>Tracking</th></tr>
               {% for view in list %}
@@ -16,6 +18,7 @@
               </tr>
               {% endfor %}
             </table>
+            {{ pagination.links }}
           </div>
         </listTracking>
         {% include 'map.html' %}
