@@ -5,6 +5,8 @@
         <listDevice>
           <div id="listDeviceDiv">
             <h2>List Device</h2>
+            {{ pagination.info }}
+            {{ pagination.links }}
             <table class="center">
               <tr><th>Name</th><th>User Login</th><th>Status</th><th>Last Update</th><th>Delete</th></tr>
               {% for view in list %}
@@ -17,6 +19,7 @@
               </tr>
               {% endfor %}
             </table>
+            {{ pagination.links }}
           </div>
         </listDevice>
         {% include 'map.html' %}
