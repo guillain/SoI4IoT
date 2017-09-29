@@ -6,6 +6,7 @@
 
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
+from flask_paginate import Pagination, get_page_parameter
 from werkzeug.utils import secure_filename
 from tools import logger, exeReq, wEvent, getMaps, loginList, nameList
 
@@ -76,14 +77,30 @@ def viewTracking():
 @tracking_app.route('/html/v1.0/tracking/list', methods=['POST', 'GET'])
 def listTracking():
     try:
+        sql_cont  = "FROM tracking t, user u, device d "
+        sql_cont += "WHERE t.uid = u.uid AND t.did = d.did AND u.grp != 'deleted' AND d.status != 'deleted' "
+
+        # Pagination
+        search = False
+        q = request.args.get('q')
+        if q:
+            search = True
+        page = request.args.get(get_page_parameter(), type=int, default=1)
+        per_page = 20
+        startat = page * per_page
+        if startat <= per_page:
+            startat = 0
+        count = exeReq("SELECT count(*) {}".format(sql_cont))
+        count = re.sub("[^0-9]", "","{}".format(count))
+        pagination = Pagination(page=page, total=int(count), search=search, record_name='list', css_framework='foundation', per_page=per_page)
+
+        # Get data
         sql  = "SELECT t.tid, u.login, d.name, t.timestamp, data "
-        #CONCAT_WS(t.ip, t.gps, t.url, t.website, t.webhook, t.address, t.humidity, t.luminosity, t.temp_amb, t.temp_sensor) "
-        sql += "FROM tracking t, user u, device d "
-        sql += "WHERE t.uid = u.uid AND t.did = d.did AND u.grp != 'deleted' AND d.status != 'deleted' "
-        sql += "ORDER BY t.tid DESC"
+        sql += "{} ORDER BY t.tid DESC LIMIT {}, {};".format(sql_cont, startat, per_page)
         list = exeReq(sql)
+
         wEvent('/html/v1.0/tracking/list','exeReq','Get list','OK')
-        return render_template('listTracking.html', list = list, maps = getMaps())
+        return render_template('listTracking.html', list = list, maps = getMaps(), pagination=pagination)
     except Exception as e:
         wEvent('/html/v1.0/tracking/list','exeReq','Get list','KO')
         return 'List error'
