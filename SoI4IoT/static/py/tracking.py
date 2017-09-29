@@ -104,3 +104,4 @@ def listTracking():
     except Exception as e:
         wEvent('/html/v1.0/tracking/list','exeReq','Get list','KO')
         return 'List error'
+
