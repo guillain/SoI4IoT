@@ -64,7 +64,7 @@ def viewDevice():
 # List --------------------------------------------------------
 @device_app.route('/html/v1.0/device/list', methods=['POST', 'GET'])
 def listDevice():
-    #try:
+    try:
         sql_cont  = "FROM device d, user u "
         sql_cont += "WHERE d.uid = u.uid AND d.status != 'deleted' AND u.grp != 'deleted' "
 
@@ -88,9 +88,24 @@ def listDevice():
 
         wEvent('/html/v1.0/device/list','exeReq','Get list','OK')
         return render_template('listDevice.html', list = list, maps = getMaps(), pagination=pagination)
-    #except Exception as e:
+    except Exception as e:
         wEvent('/html/v1.0/device/list','exeReq','Get list','KO')
         return 'List error'
+
+# Export --------------------------------------------------------
+@device_app.route('/html/v1.0/device/export', methods=['POST', 'GET'])
+def exportDevice():
+    try:
+        sql  = "SELECT * "
+        sql += "FROM device d, tracking t "
+        sql += "WHERE d.did = t.did AND d.name = '" + request.args['name'] + "';"
+        list = exeReq(sql)
+        wEvent('/html/v1.0/device/export','exeReq','Get list','OK')
+        return render_template('listTracking.html', list = list, maps = getMaps())
+
+    except Exception as e:
+        wEvent('/html/v1.0/device/export','exeReq','Get list','KO')
+        return 'Export error'
 
 # Delete Device ---------------------------------------------------
 @device_app.route('/html/v1.0/device/delete', methods=['POST', 'GET'])
