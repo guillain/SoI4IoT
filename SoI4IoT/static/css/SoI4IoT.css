@@ -207,3 +207,21 @@ body {
   height: 100%;
 }
 
+/* -- Pagination -- */
+.pagination {
+    margin: 0;
+}
+.pagination-page-info {
+    padding: 0;
+    padding-left: 0;
+    margin: 0;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+
