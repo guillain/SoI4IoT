@@ -6,6 +6,7 @@
 
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
+from flask_paginate import Pagination, get_page_parameter
 from werkzeug.utils import secure_filename
 from tools import logger, exeReq, wEvent, getMaps, loginList
 
@@ -63,14 +64,31 @@ def viewDevice():
 # List --------------------------------------------------------
 @device_app.route('/html/v1.0/device/list', methods=['POST', 'GET'])
 def listDevice():
-    try:
+    #try:
+        sql_cont  = "FROM device d, user u "
+        sql_cont += "WHERE d.uid = u.uid AND d.status != 'deleted' AND u.grp != 'deleted' "
+
+        # Pagination
+        search = False
+        q = request.args.get('q')
+        if q:
+            search = True
+        page = request.args.get(get_page_parameter(), type=int, default=1)
+        per_page = 20
+        startat = page * per_page
+        if startat <= per_page:
+            startat = 0
+        count = exeReq("SELECT count(*) " + sql_cont)
+        count = re.sub("[^0-9]", "","{}".format(count))
+        pagination = Pagination(page=page, total=int(count), search=search, record_name='list', css_framework='foundation', per_page=per_page)
+
         sql  = "SELECT d.name, u.login, d.status, d.lastupdate "
-        sql += "FROM device d, user u "
-        sql += "WHERE d.uid = u.uid AND d.status != 'deleted' AND u.grp != 'deleted';"
+        sql += "{} LIMIT {}, {};".format(sql_cont, startat, per_page)
         list = exeReq(sql)
+
         wEvent('/html/v1.0/device/list','exeReq','Get list','OK')
-        return render_template('listDevice.html', list = list, maps = getMaps())
-    except Exception as e:
+        return render_template('listDevice.html', list = list, maps = getMaps(), pagination=pagination)
+    #except Exception as e:
         wEvent('/html/v1.0/device/list','exeReq','Get list','KO')
         return 'List error'
 
