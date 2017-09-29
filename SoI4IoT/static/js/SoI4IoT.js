@@ -78,6 +78,23 @@
     });
   });
 
+/* exportTracking click */
+  $(function() {
+    $('a#exportTracking').bind('click', function() {
+        $.ajax({
+            url: 'export',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(data) {
+                $("#result").text(data);
+            },
+            error: function(error) {
+                $("#result").text(error);
+            }
+        });
+    });
+  });
+
 /* TRACKER */
 /* Refresh function */
   function trackerFct(){
