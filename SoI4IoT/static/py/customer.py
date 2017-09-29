@@ -6,6 +6,7 @@
 
 from flask import Flask, session, redirect, url_for, escape, request
 from flask import render_template, jsonify, send_file
+from flask_paginate import Pagination, get_page_parameter
 from werkzeug.utils import secure_filename
 from tools import logger, exeReq, wEvent, getMaps,loginList, nameList
 
@@ -69,11 +70,27 @@ def viewCustomer():
 @customer_app.route('/html/v1.0/customer/list', methods=['POST', 'GET'])
 def listCustomer():
     try:
+        # Pagination
+        search = False
+        q = request.args.get('q')
+        if q:
+            search = True
+        page = request.args.get(get_page_parameter(), type=int, default=1)
+        per_page = 20
+        startat = page * per_page
+        if startat <= per_page:
+            startat = 0
+        count = exeReq("SELECT count(*) FROM user WHERE grp = 'customer';")
+        count = re.sub("[^0-9]", "","{}".format(count))
+        pagination = Pagination(page=page, total=int(count), search=search, record_name='list', css_framework='foundation', per_page=per_page)
+
+        # Get data
         list = exeReq("SELECT login, email, grp FROM user WHERE grp = 'customer';")
-        wEvent('/html/v1.0/customer/list','exeReq','Get','OK')
-        return render_template('listCustomer.html', list = list, maps = getMaps())
+
+        wEvent('/html/v1.0/customer/list','exeReq','Get list','OK')
+        return render_template('listCustomer.html', list = list, maps = getMaps(), pagination=pagination)
     except Exception as e:
-        wEvent('/html/v1.0/customer/list','exeReq','Get','KO')
+        wEvent('/html/v1.0/customer/list','exeReq','Get list','KO')
         return 'List error'
 
 # Delete Customer ---------------------------------------------------
