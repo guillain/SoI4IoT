@@ -24,8 +24,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i,900,900i">
-    <link rel="stylesheet" href="https://basecoat.dimensiondata.com/release/1.1.1/css/dd.basecoat.min.css">
-    <script src="https://basecoat.dimensiondata.com/release/1.1.1/js/dd.basecoat.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dd.basecoat.min.css') }}">
+    <script src="{{ url_for('static', filename='js/dd.basecoat.min.js') }}"></script>
+
   </head>
   <body onload="bodyOnload()">
     <!-- Loading -->
@@ -63,6 +65,7 @@
 
     <div class="wrapper">
      {% if session.login %}
+
       <nav>
         <h2>Nav</h2>
         <div>
@@ -90,6 +93,7 @@
       {% block welcome %}{% endblock %}
       {% block tracker %}{% endblock %}
       {% block dashboard %}{% endblock %}
+
      {% endif %}
     </div> <!-- /wrapper -->
 
