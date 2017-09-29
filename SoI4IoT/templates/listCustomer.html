@@ -4,6 +4,8 @@
         <listCustomer>
           <div id="listCustomerDiv">
             <h2>List Customer</h2>
+            {{ pagination.info }}
+            {{ pagination.links }}
             <table class="center">
               <tr><th>Login</th><th>Email</th><th>Delete</th></tr>
               {% for view in list %}
@@ -14,6 +16,7 @@
               </tr>
               {% endfor %}
             </table>
+            {{ pagination.links }}
           </div>
         </listCustomer>
         {% include 'map.html' %}
