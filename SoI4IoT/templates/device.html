@@ -24,9 +24,12 @@
                     <td>Status</td>
                     <td><input type="text" name="status" id="status" placeholder="Status" value="{% if view is defined %}{{ view[4] }}{% endif %}"/></td>
                   </tr>
+                  <tr>
+                    <td colspan="2"><div id="exportTrackingDiv"><a href="#" id="exportTracking">Export tracking</a></div></td>
+
+                    <td colspan="2"><div id="saveDeviceDiv"><a href="#" id="saveDevice">Save</a></div></td>
                 </table>
               </div> <!-- Device div -->
-              <div id="saveDeviceDiv"><a href="#" id="saveDevice">Save</a></div>
             </form>
           </div>
         </device>
