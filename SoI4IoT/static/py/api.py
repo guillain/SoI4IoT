@@ -99,7 +99,7 @@ def get_items(item, item_id = None):
 @api.route('/api/v1.0/<item>', methods=['POST'])
 @auth.login_required
 def create_item(item):
-    try:
+    #try:
         if not request.json or not item in request.json:
             abort(400)
 
@@ -115,7 +115,7 @@ def create_item(item):
             item = 'tracking'
         elif 'lebonsailounge' in item:
             # Create device if not exist
-            did = exeReq("SELECT count(*) WHERE name = '{}';".format(request.json[item]['device']))
+            did = exeReq("SELECT count(*) FROM device WHERE name = '{}';".format(request.json[item]['device']))
             did = re.sub("[^0-9]", "","{}".format(did))
             if did == 0:
                 sql  = "INSERT INTO device SET "
@@ -151,7 +151,7 @@ def create_item(item):
         wEvent('/api/v1.0/{}/{}'.format(item, item_id),'api','POST','OK')
         return jsonify({item: item_id}), 201
 
-    except Exception as e:
+    #except Exception as e:
         wEvent('/api/v1.0/{}'.format(item),'api','POST','KO')
         abort(400)
 
