@@ -2,6 +2,8 @@
 System of Information For Internet of Things
 Provide web management interface to track and manage IoT activities
 
+We have also the hardware for that, thanks to ask ;)
+
 ## Featues
 * Full REST API synch with the SQL structure
 * Google Map
